@@ -1,0 +1,5 @@
+# APTOS 2019 dataset configuration
+name: aptos2019
+data_dir: ./data/APTOS2019/
+image_size: 224
+num_workers: 2

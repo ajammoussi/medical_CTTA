@@ -1,0 +1,10 @@
+# RETFound ViT-Large model parameters
+name: retfound
+checkpoint: YukunZhou/RETFound_mae_natureCFP
+num_classes: 5
+freeze_layers: 20
+lr: 1e-4
+weight_decay: 0.05
+layer_decay: 0.65
+drop_path: 0.2
+image_size: 224

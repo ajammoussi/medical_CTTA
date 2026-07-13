@@ -1,0 +1,1356 @@
+{
+  "mode": "sequential",
+  "method": "palm",
+  "source_baseline": {
+    "qwk": 0.6491633723676686,
+    "per_class_accuracy": {
+      "0": 0.5,
+      "1": 0.0,
+      "2": 0.28125,
+      "3": 0.6842105263157895,
+      "4": 0.3076923076923077
+    },
+    "num_samples": 103
+  },
+  "domain_results": [
+    {
+      "domain_name": "aptos2019",
+      "description": "Target domain 1: heterogeneous multi-site (APTOS 2019)",
+      "baseline_metrics": {
+        "qwk": 0.3865911465826656,
+        "per_class_accuracy": {
+          "0": 0.2914572864321608,
+          "1": 0.0,
+          "2": 0.6666666666666666,
+          "3": 0.17647058823529413,
+          "4": 0.06060606060606061
+        },
+        "num_samples": 366
+      },
+      "post_adaptation_metrics": {
+        "qwk": 0.3845839698697685,
+        "per_class_accuracy": {
+          "0": 0.2964824120603015,
+          "1": 0.0,
+          "2": 0.6551724137931034,
+          "3": 0.17647058823529413,
+          "4": 0.06060606060606061
+        },
+        "num_samples": 366
+      },
+      "batch_metrics": [
+        {
+          "batch_idx": 0,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 1,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 2,
+          "accuracy": 0.5625
+        },
+        {
+          "batch_idx": 3,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 4,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 5,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 6,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 7,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 8,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 9,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 10,
+          "accuracy": 0.25
+        },
+        {
+          "batch_idx": 11,
+          "accuracy": 0.5
+        },
+        {
+          "batch_idx": 12,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 13,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 14,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 15,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 16,
+          "accuracy": 0.25
+        },
+        {
+          "batch_idx": 17,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 18,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 19,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 20,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 21,
+          "accuracy": 0.25
+        },
+        {
+          "batch_idx": 22,
+          "accuracy": 0.4285714626312256
+        }
+      ],
+      "adaptation_steps": [
+        {
+          "batch_idx": 0,
+          "signals": {
+            "ema_entropy": 1.1804993152618408,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.3012573781421015,
+            "drift": 5.424022674560547e-06,
+            "cosine_sim": 0.9999945759773254,
+            "window_size": 16,
+            "jsd": 0.09668935090303421,
+            "current_distribution": [
+              0.1875,
+              0.0625,
+              0.5625,
+              0.1875,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5495267510414124,
+            "kl_loss": 0.00010186508006881922,
+            "entropy": 1.1804993152618408,
+            "post_adapt_entropy": 1.1803349256515503,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.47284793853759766,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 1,
+          "signals": {
+            "ema_entropy": 1.1686460494995117,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.28940411237977237,
+            "drift": 2.396106719970703e-05,
+            "cosine_sim": 0.9999760389328003,
+            "window_size": 32,
+            "jsd": 0.07380768656730652,
+            "current_distribution": [
+              0.28125,
+              0.09375,
+              0.46875,
+              0.15625,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5725151896476746,
+            "kl_loss": 0.0001359788584522903,
+            "entropy": 1.0619666576385498,
+            "post_adapt_entropy": 1.0616707801818848,
+            "num_confident_samples": 3,
+            "mean_max_prob": 0.5600310564041138,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 2,
+          "signals": {
+            "ema_entropy": 1.1702284622192383,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29098652509949896,
+            "drift": 4.26173210144043e-05,
+            "cosine_sim": 0.9999573826789856,
+            "window_size": 48,
+            "jsd": 0.0634755790233612,
+            "current_distribution": [
+              0.25,
+              0.0833333358168602,
+              0.5208333134651184,
+              0.125,
+              0.02083333395421505
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5372231006622314,
+            "kl_loss": 9.678283822722733e-05,
+            "entropy": 1.1844701766967773,
+            "post_adapt_entropy": 1.1843147277832031,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.49413493275642395,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 3,
+          "signals": {
+            "ema_entropy": 1.17118776512146,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29194582800172064,
+            "drift": 7.742643356323242e-05,
+            "cosine_sim": 0.9999225735664368,
+            "window_size": 50,
+            "jsd": 0.06054794043302536,
+            "current_distribution": [
+              0.2800000011920929,
+              0.07999999821186066,
+              0.5,
+              0.11999999731779099,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.0003492804244160652,
+            "kl_loss": 0.00010025624942500144,
+            "entropy": 1.179821491241455,
+            "post_adapt_entropy": 1.179625391960144,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.4890080690383911,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 4,
+          "signals": {
+            "ema_entropy": 1.1724185884475709,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29317665132783155,
+            "drift": 0.00011938810348510742,
+            "cosine_sim": 0.9998806118965149,
+            "window_size": 50,
+            "jsd": 0.09737247228622437,
+            "current_distribution": [
+              0.25999999046325684,
+              0.05999999865889549,
+              0.6000000238418579,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4966960549354553,
+            "kl_loss": 8.078828977886587e-05,
+            "entropy": 1.1834959983825684,
+            "post_adapt_entropy": 1.1833205223083496,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.4912625849246979,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 5,
+          "signals": {
+            "ema_entropy": 1.1697628921699526,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29052095505021325,
+            "drift": 0.0001977086067199707,
+            "cosine_sim": 0.99980229139328,
+            "window_size": 50,
+            "jsd": 0.14201189577579498,
+            "current_distribution": [
+              0.2800000011920929,
+              0.03999999910593033,
+              0.6399999856948853,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4418059289455414,
+            "kl_loss": 7.455026207026094e-05,
+            "entropy": 1.1458616256713867,
+            "post_adapt_entropy": 1.1457173824310303,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.5324181318283081,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 6,
+          "signals": {
+            "ema_entropy": 1.1662342691211702,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2869923320014309,
+            "drift": 0.0002810955047607422,
+            "cosine_sim": 0.9997189044952393,
+            "window_size": 50,
+            "jsd": 0.14888572692871094,
+            "current_distribution": [
+              0.2199999988079071,
+              0.05999999865889549,
+              0.6800000071525574,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4085647761821747,
+            "kl_loss": 9.821949788602069e-05,
+            "entropy": 1.134476661682129,
+            "post_adapt_entropy": 1.1344473361968994,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5330477952957153,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 7,
+          "signals": {
+            "ema_entropy": 1.168674851398659,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2894329142789196,
+            "drift": 0.0003641843795776367,
+            "cosine_sim": 0.9996358156204224,
+            "window_size": 50,
+            "jsd": 0.13309887051582336,
+            "current_distribution": [
+              0.18000000715255737,
+              0.11999999731779099,
+              0.6399999856948853,
+              0.05999999865889549,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5842577815055847,
+            "kl_loss": 7.996930071385577e-05,
+            "entropy": 1.1906400918960571,
+            "post_adapt_entropy": 1.1905455589294434,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.4722493588924408,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 8,
+          "signals": {
+            "ema_entropy": 1.1708724840947915,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2916305469750522,
+            "drift": 0.0004202127456665039,
+            "cosine_sim": 0.9995797872543335,
+            "window_size": 50,
+            "jsd": 0.10544823855161667,
+            "current_distribution": [
+              0.2199999988079071,
+              0.1599999964237213,
+              0.5400000214576721,
+              0.07999999821186066,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.0004256561223883182,
+            "kl_loss": 8.139644342008978e-05,
+            "entropy": 1.1906511783599854,
+            "post_adapt_entropy": 1.1905229091644287,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.49923384189605713,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 9,
+          "signals": {
+            "ema_entropy": 1.1737418601932164,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29449992307347705,
+            "drift": 0.0005539655685424805,
+            "cosine_sim": 0.9994460344314575,
+            "window_size": 50,
+            "jsd": 0.09840554744005203,
+            "current_distribution": [
+              0.2199999988079071,
+              0.14000000059604645,
+              0.5400000214576721,
+              0.10000000149011612,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.574214518070221,
+            "kl_loss": 7.640837429789826e-05,
+            "entropy": 1.1995662450790405,
+            "post_adapt_entropy": 1.1994612216949463,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.4856886863708496,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 10,
+          "signals": {
+            "ema_entropy": 1.1691578534265192,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.28991591630677993,
+            "drift": 0.0006575584411621094,
+            "cosine_sim": 0.9993424415588379,
+            "window_size": 50,
+            "jsd": 0.08488103747367859,
+            "current_distribution": [
+              0.2199999988079071,
+              0.14000000059604645,
+              0.5,
+              0.14000000059604645,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5934233665466309,
+            "kl_loss": 0.00012863115989603102,
+            "entropy": 1.1279017925262451,
+            "post_adapt_entropy": 1.127777338027954,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5129588842391968,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 11,
+          "signals": {
+            "ema_entropy": 1.1600023186522572,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2807603815325179,
+            "drift": 0.0007418990135192871,
+            "cosine_sim": 0.9992581009864807,
+            "window_size": 50,
+            "jsd": 0.06660259515047073,
+            "current_distribution": [
+              0.2199999988079071,
+              0.11999999731779099,
+              0.5199999809265137,
+              0.11999999731779099,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4103332757949829,
+            "kl_loss": 0.00014777632895857096,
+            "entropy": 1.077602505683899,
+            "post_adapt_entropy": 1.0773605108261108,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.539454460144043,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 12,
+          "signals": {
+            "ema_entropy": 1.1699740597293837,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29073212260964443,
+            "drift": 0.0009357333183288574,
+            "cosine_sim": 0.9990642666816711,
+            "window_size": 50,
+            "jsd": 0.0828341692686081,
+            "current_distribution": [
+              0.20000000298023224,
+              0.10000000149011612,
+              0.5799999833106995,
+              0.10000000149011612,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.0012407948961481452,
+            "kl_loss": 6.82218378642574e-05,
+            "entropy": 1.259719729423523,
+            "post_adapt_entropy": 1.259608507156372,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.4593799114227295,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 13,
+          "signals": {
+            "ema_entropy": 1.1644608237164673,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.285218886596728,
+            "drift": 0.0010770559310913086,
+            "cosine_sim": 0.9989229440689087,
+            "window_size": 50,
+            "jsd": 0.09676706790924072,
+            "current_distribution": [
+              0.20000000298023224,
+              0.14000000059604645,
+              0.5799999833106995,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.43941831588745117,
+            "kl_loss": 0.00010302814916940406,
+            "entropy": 1.1148416996002197,
+            "post_adapt_entropy": 1.114755392074585,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5198193788528442,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 14,
+          "signals": {
+            "ema_entropy": 1.1557188801006189,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.27647694298087955,
+            "drift": 0.0011860132217407227,
+            "cosine_sim": 0.9988139867782593,
+            "window_size": 50,
+            "jsd": 0.10990200191736221,
+            "current_distribution": [
+              0.20000000298023224,
+              0.10000000149011612,
+              0.6000000238418579,
+              0.10000000149011612,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4743351936340332,
+            "kl_loss": 0.00011698748858179897,
+            "entropy": 1.0770413875579834,
+            "post_adapt_entropy": 1.0767133235931396,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.554290771484375,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 15,
+          "signals": {
+            "ema_entropy": 1.1525760864051322,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2733341492853929,
+            "drift": 0.0013440251350402832,
+            "cosine_sim": 0.9986559748649597,
+            "window_size": 50,
+            "jsd": 0.0638299286365509,
+            "current_distribution": [
+              0.2800000011920929,
+              0.14000000059604645,
+              0.47999998927116394,
+              0.05999999865889549,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.46281805634498596,
+            "kl_loss": 0.00010164563718717545,
+            "entropy": 1.124290943145752,
+            "post_adapt_entropy": 1.1239551305770874,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.5201497077941895,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 16,
+          "signals": {
+            "ema_entropy": 1.1514803506283884,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2722384135086491,
+            "drift": 0.0014669299125671387,
+            "cosine_sim": 0.9985330700874329,
+            "window_size": 50,
+            "jsd": 0.05933486297726631,
+            "current_distribution": [
+              0.25999999046325684,
+              0.11999999731779099,
+              0.5,
+              0.07999999821186066,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4599255919456482,
+            "kl_loss": 9.905437764246017e-05,
+            "entropy": 1.1416187286376953,
+            "post_adapt_entropy": 1.1414430141448975,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5052533745765686,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 17,
+          "signals": {
+            "ema_entropy": 1.149292630316221,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2700506931964817,
+            "drift": 0.0016255974769592285,
+            "cosine_sim": 0.9983744025230408,
+            "window_size": 50,
+            "jsd": 0.08655469119548798,
+            "current_distribution": [
+              0.2199999988079071,
+              0.20000000298023224,
+              0.5,
+              0.03999999910593033,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.5876340270042419,
+            "kl_loss": 0.00010338520223740488,
+            "entropy": 1.1296031475067139,
+            "post_adapt_entropy": 1.129436731338501,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.5057165622711182,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 18,
+          "signals": {
+            "ema_entropy": 1.1418010255945354,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.26255908847479614,
+            "drift": 0.0017812848091125488,
+            "cosine_sim": 0.9982187151908875,
+            "window_size": 50,
+            "jsd": 0.11100725084543228,
+            "current_distribution": [
+              0.20000000298023224,
+              0.1599999964237213,
+              0.5600000023841858,
+              0.07999999821186066,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.3464502990245819,
+            "kl_loss": 0.00012607089593075216,
+            "entropy": 1.0743765830993652,
+            "post_adapt_entropy": 1.074225664138794,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5512528419494629,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 19,
+          "signals": {
+            "ema_entropy": 1.150942170135912,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.27170023301617263,
+            "drift": 0.002003192901611328,
+            "cosine_sim": 0.9979968070983887,
+            "window_size": 50,
+            "jsd": 0.15334907174110413,
+            "current_distribution": [
+              0.14000000059604645,
+              0.2199999988079071,
+              0.6000000238418579,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.0005672018160112202,
+            "kl_loss": 6.402283179340884e-05,
+            "entropy": 1.2332124710083008,
+            "post_adapt_entropy": 1.2331774234771729,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.4667520523071289,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 20,
+          "signals": {
+            "ema_entropy": 1.1441212447101503,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.264879307590411,
+            "drift": 0.002207517623901367,
+            "cosine_sim": 0.9977924823760986,
+            "window_size": 50,
+            "jsd": 0.1102958619594574,
+            "current_distribution": [
+              0.1599999964237213,
+              0.14000000059604645,
+              0.6200000047683716,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.44288262724876404,
+            "kl_loss": 0.00011978979455307126,
+            "entropy": 1.082732915878296,
+            "post_adapt_entropy": 1.082572102546692,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5544703006744385,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 21,
+          "signals": {
+            "ema_entropy": 1.1471520619047846,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2679101247850453,
+            "drift": 0.0023879408836364746,
+            "cosine_sim": 0.9976120591163635,
+            "window_size": 50,
+            "jsd": 0.1102958619594574,
+            "current_distribution": [
+              0.1599999964237213,
+              0.14000000059604645,
+              0.6200000047683716,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.46264249086380005,
+            "kl_loss": 9.507370123174042e-05,
+            "entropy": 1.1744294166564941,
+            "post_adapt_entropy": 1.174347996711731,
+            "num_confident_samples": 2,
+            "mean_max_prob": 0.5104128122329712,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 22,
+          "signals": {
+            "ema_entropy": 1.1422151407408565,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2629732036211172,
+            "drift": 0.0025364160537719727,
+            "cosine_sim": 0.997463583946228,
+            "window_size": 50,
+            "jsd": 0.07717187702655792,
+            "current_distribution": [
+              0.2199999988079071,
+              0.10000000149011612,
+              0.5600000023841858,
+              0.10000000149011612,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.00041605846490710974,
+            "kl_loss": 0.00012712010357063264,
+            "entropy": 1.097782850265503,
+            "post_adapt_entropy": 1.097450613975525,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.5525684356689453,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        }
+      ],
+      "num_adaptations": 23,
+      "total_batches": 23
+    },
+    {
+      "domain_name": "idrid",
+      "description": "Target domain 2: return to source domain (test forgetting)",
+      "baseline_metrics": {
+        "qwk": 0.6585803029931004,
+        "per_class_accuracy": {
+          "0": 0.5588235294117647,
+          "1": 0.0,
+          "2": 0.28125,
+          "3": 0.6842105263157895,
+          "4": 0.3076923076923077
+        },
+        "num_samples": 103
+      },
+      "post_adaptation_metrics": {
+        "qwk": 0.6585803029931004,
+        "per_class_accuracy": {
+          "0": 0.5588235294117647,
+          "1": 0.0,
+          "2": 0.28125,
+          "3": 0.6842105263157895,
+          "4": 0.3076923076923077
+        },
+        "num_samples": 103
+      },
+      "batch_metrics": [
+        {
+          "batch_idx": 0,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 1,
+          "accuracy": 0.6875
+        },
+        {
+          "batch_idx": 2,
+          "accuracy": 0.5625
+        },
+        {
+          "batch_idx": 3,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 4,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 5,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 6,
+          "accuracy": 0.1428571492433548
+        }
+      ],
+      "adaptation_steps": [
+        {
+          "batch_idx": 0,
+          "signals": {
+            "ema_entropy": 1.0187116861343384,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.14340565306727593,
+            "drift": 5.364418029785156e-07,
+            "cosine_sim": 0.999999463558197,
+            "window_size": 16,
+            "jsd": 0.10155153274536133,
+            "current_distribution": [
+              0.0625,
+              0.0625,
+              0.1875,
+              0.5625,
+              0.125
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.001273931236937642,
+            "kl_loss": 0.0002664922794792801,
+            "entropy": 1.0187116861343384,
+            "post_adapt_entropy": 1.0187089443206787,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.5438992381095886,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 1,
+          "signals": {
+            "ema_entropy": 1.0172768592834474,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.1419708262163849,
+            "drift": 2.384185791015625e-06,
+            "cosine_sim": 0.999997615814209,
+            "window_size": 32,
+            "jsd": 0.08139214664697647,
+            "current_distribution": [
+              0.09375,
+              0.09375,
+              0.1875,
+              0.53125,
+              0.09375
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.0011475480860099196,
+            "kl_loss": 0.0002826334675773978,
+            "entropy": 1.0043634176254272,
+            "post_adapt_entropy": 1.004326343536377,
+            "num_confident_samples": 0,
+            "mean_max_prob": 0.5385488271713257,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 2,
+          "signals": {
+            "ema_entropy": 1.0113197350502015,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.136013701983139,
+            "drift": 5.602836608886719e-06,
+            "cosine_sim": 0.9999943971633911,
+            "window_size": 48,
+            "jsd": 0.044536083936691284,
+            "current_distribution": [
+              0.1875,
+              0.0833333358168602,
+              0.1875,
+              0.4583333432674408,
+              0.0833333358168602
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.43302956223487854,
+            "kl_loss": 0.00021439470583572984,
+            "entropy": 0.9577056169509888,
+            "post_adapt_entropy": 0.9573010206222534,
+            "num_confident_samples": 3,
+            "mean_max_prob": 0.6002070307731628,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 3,
+          "signals": {
+            "ema_entropy": 1.005294732809067,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.12998869974200444,
+            "drift": 1.0371208190917969e-05,
+            "cosine_sim": 0.9999896287918091,
+            "window_size": 50,
+            "jsd": 0.012847930192947388,
+            "current_distribution": [
+              0.23999999463558197,
+              0.10000000149011612,
+              0.2199999988079071,
+              0.3199999928474426,
+              0.11999999731779099
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.4624392092227936,
+            "kl_loss": 0.00025859547895379364,
+            "entropy": 0.951069712638855,
+            "post_adapt_entropy": 0.9507737755775452,
+            "num_confident_samples": 4,
+            "mean_max_prob": 0.6027668714523315,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 4,
+          "signals": {
+            "ema_entropy": 0.9958387367963792,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.12053270372931679,
+            "drift": 1.6689300537109375e-05,
+            "cosine_sim": 0.9999833106994629,
+            "window_size": 50,
+            "jsd": 0.004005163908004761,
+            "current_distribution": [
+              0.3799999952316284,
+              0.07999999821186066,
+              0.2199999988079071,
+              0.2199999988079071,
+              0.10000000149011612
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.28197214007377625,
+            "kl_loss": 0.0002153285313397646,
+            "entropy": 0.9107347726821899,
+            "post_adapt_entropy": 0.9103604555130005,
+            "num_confident_samples": 3,
+            "mean_max_prob": 0.6185118556022644,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 5,
+          "signals": {
+            "ema_entropy": 0.9969792741274834,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.12167324106042099,
+            "drift": 2.4557113647460938e-05,
+            "cosine_sim": 0.9999754428863525,
+            "window_size": 50,
+            "jsd": 0.007259249687194824,
+            "current_distribution": [
+              0.4000000059604645,
+              0.07999999821186066,
+              0.25999999046325684,
+              0.18000000715255737,
+              0.07999999821186066
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.6012679934501648,
+            "kl_loss": 0.00015283501124940813,
+            "entropy": 1.0072441101074219,
+            "post_adapt_entropy": 1.0071189403533936,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.6005078554153442,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        },
+        {
+          "batch_idx": 6,
+          "signals": {
+            "ema_entropy": 1.0085110406043531,
+            "baseline_entropy": 0.8753060330670625,
+            "entropy_diff": 0.1332050075372907,
+            "drift": 3.540515899658203e-05,
+            "cosine_sim": 0.9999645948410034,
+            "window_size": 50,
+            "jsd": 0.015173405408859253,
+            "current_distribution": [
+              0.4399999976158142,
+              0.11999999731779099,
+              0.20000000298023224,
+              0.18000000715255737,
+              0.05999999865889549
+            ],
+            "baseline_distribution": [
+              0.33171913027763367,
+              0.09200968593358994,
+              0.23728813230991364,
+              0.19128328561782837,
+              0.1476997584104538
+            ],
+            "triggered_signals": []
+          },
+          "metrics": {
+            "loss": 0.549950897693634,
+            "kl_loss": 0.00012732454342767596,
+            "entropy": 1.1122969388961792,
+            "post_adapt_entropy": 1.1117969751358032,
+            "num_confident_samples": 1,
+            "mean_max_prob": 0.5105570554733276,
+            "n_selected_params": 16,
+            "n_total_params": 54,
+            "selected_fraction": 0.2962962962962963
+          }
+        }
+      ],
+      "num_adaptations": 7,
+      "total_batches": 7
+    }
+  ],
+  "forgetting": -0.009416930625431807,
+  "num_adaptations": 30,
+  "total_batches": 30,
+  "adaptation_rate": 1.0,
+  "final_metrics": {
+    "qwk": 0.6585803029931004,
+    "per_class_accuracy": {
+      "0": 0.5588235294117647,
+      "1": 0.0,
+      "2": 0.28125,
+      "3": 0.6842105263157895,
+      "4": 0.3076923076923077
+    },
+    "num_samples": 103
+  }
+}

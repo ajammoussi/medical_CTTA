@@ -1,0 +1,5 @@
+# IDRiD dataset configuration
+name: idrid
+data_dir: ./data/IDRiD/
+image_size: 224
+num_workers: 2

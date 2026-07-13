@@ -1,0 +1,10 @@
+project: medical-ctta-kaggle-setup
+kernel_slug: <username>/medical-ctta-kaggle-setup
+code_file: notebooks\00_setup_kaggle.ipynb
+accelerator: GPU
+internet: true
+privacy: private
+datasets: []
+competitions: []
+outputs:
+  download_to: .kaggle-outputs/

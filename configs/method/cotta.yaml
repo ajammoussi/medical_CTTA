@@ -1,0 +1,17 @@
+# CoTTA experiment config (extends global defaults)
+extends: ../default.yaml
+output_dir: ./outputs/cotta/
+model: !include ../model/retfound.yaml
+source_dataset: !include ../data/idrid.yaml
+target_dataset: !include ../data/aptos2019.yaml
+ctta:
+  method: cotta
+  ema_alpha: 0.999
+  restore_prob: 0.01
+  num_augmentations: 8
+  confidence_threshold: 0.3
+  entropy_threshold: 1.0
+  lr: 1e-4
+  batch_size: 16
+shift_detection: !include ../shift_detection/default.yaml
+sequential_ctta: !include ../sequential/default.yaml

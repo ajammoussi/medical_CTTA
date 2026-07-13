@@ -1,0 +1,1121 @@
+{
+  "mode": "sequential",
+  "method": "cotta",
+  "source_baseline": {
+    "qwk": 0.6491633723676686,
+    "per_class_accuracy": {
+      "0": 0.5,
+      "1": 0.0,
+      "2": 0.28125,
+      "3": 0.6842105263157895,
+      "4": 0.3076923076923077
+    },
+    "num_samples": 103
+  },
+  "domain_results": [
+    {
+      "domain_name": "aptos2019",
+      "description": "Target domain 1: heterogeneous multi-site (APTOS 2019)",
+      "baseline_metrics": {
+        "qwk": 0.3865911465826656,
+        "per_class_accuracy": {
+          "0": 0.2914572864321608,
+          "1": 0.0,
+          "2": 0.6666666666666666,
+          "3": 0.17647058823529413,
+          "4": 0.06060606060606061
+        },
+        "num_samples": 366
+      },
+      "post_adaptation_metrics": {
+        "qwk": 0.3820589969609459,
+        "per_class_accuracy": {
+          "0": 0.2914572864321608,
+          "1": 0.0,
+          "2": 0.6666666666666666,
+          "3": 0.17647058823529413,
+          "4": 0.06060606060606061
+        },
+        "num_samples": 366
+      },
+      "batch_metrics": [
+        {
+          "batch_idx": 0,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 1,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 2,
+          "accuracy": 0.5625
+        },
+        {
+          "batch_idx": 3,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 4,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 5,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 6,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 7,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 8,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 9,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 10,
+          "accuracy": 0.25
+        },
+        {
+          "batch_idx": 11,
+          "accuracy": 0.5
+        },
+        {
+          "batch_idx": 12,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 13,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 14,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 15,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 16,
+          "accuracy": 0.25
+        },
+        {
+          "batch_idx": 17,
+          "accuracy": 0.375
+        },
+        {
+          "batch_idx": 18,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 19,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 20,
+          "accuracy": 0.1875
+        },
+        {
+          "batch_idx": 21,
+          "accuracy": 0.25
+        }
+      ],
+      "adaptation_steps": [
+        {
+          "batch_idx": 0,
+          "signals": {
+            "ema_entropy": 1.1804993152618408,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.3012573781421015,
+            "drift": 5.424022674560547e-06,
+            "cosine_sim": 0.9999945759773254,
+            "window_size": 16,
+            "jsd": 0.09668935090303421,
+            "current_distribution": [
+              0.1875,
+              0.0625,
+              0.5625,
+              0.1875,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "entropy",
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.1053763628005981,
+            "teacher_entropy": 1.1804993152618408,
+            "student_entropy": 1.2108724117279053,
+            "teacher_student_divergence": 0.07134360074996948,
+            "restoration_count": 982,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.36502349376678467
+          }
+        },
+        {
+          "batch_idx": 1,
+          "signals": {
+            "ema_entropy": 1.1686890125274658,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2894470754077265,
+            "drift": 2.4020671844482422e-05,
+            "cosine_sim": 0.9999759793281555,
+            "window_size": 32,
+            "jsd": 0.07380768656730652,
+            "current_distribution": [
+              0.28125,
+              0.09375,
+              0.46875,
+              0.15625,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.0361179113388062,
+            "teacher_entropy": 1.0623962879180908,
+            "student_entropy": 1.249163269996643,
+            "teacher_student_divergence": 0.13450565934181213,
+            "restoration_count": 953,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.3979910910129547
+          }
+        },
+        {
+          "batch_idx": 2,
+          "signals": {
+            "ema_entropy": 1.1702834486961364,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2910415115763971,
+            "drift": 4.2557716369628906e-05,
+            "cosine_sim": 0.9999574422836304,
+            "window_size": 48,
+            "jsd": 0.0634755790233612,
+            "current_distribution": [
+              0.25,
+              0.0833333358168602,
+              0.5208333134651184,
+              0.125,
+              0.02083333395421505
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8945170640945435,
+            "teacher_entropy": 1.1846333742141724,
+            "student_entropy": 1.2772259712219238,
+            "teacher_student_divergence": 0.05357935652136803,
+            "restoration_count": 1033,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.38242772221565247
+          }
+        },
+        {
+          "batch_idx": 3,
+          "signals": {
+            "ema_entropy": 1.171310781240463,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29206884412072376,
+            "drift": 7.742643356323242e-05,
+            "cosine_sim": 0.9999225735664368,
+            "window_size": 50,
+            "jsd": 0.06054794043302536,
+            "current_distribution": [
+              0.2800000011920929,
+              0.07999999821186066,
+              0.5,
+              0.11999999731779099,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8228707313537598,
+            "teacher_entropy": 1.1805567741394043,
+            "student_entropy": 1.1889541149139404,
+            "teacher_student_divergence": 0.0634971335530281,
+            "restoration_count": 969,
+            "num_confident_samples": 12,
+            "mean_max_prob": 0.34189125895500183
+          }
+        },
+        {
+          "batch_idx": 4,
+          "signals": {
+            "ema_entropy": 1.1726173986196518,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.29337546149991245,
+            "drift": 0.00011938810348510742,
+            "cosine_sim": 0.9998806118965149,
+            "window_size": 50,
+            "jsd": 0.09737247228622437,
+            "current_distribution": [
+              0.25999999046325684,
+              0.05999999865889549,
+              0.6000000238418579,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8641242384910583,
+            "teacher_entropy": 1.1843769550323486,
+            "student_entropy": 1.2363691329956055,
+            "teacher_student_divergence": 0.05210291966795921,
+            "restoration_count": 1011,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.3581758141517639
+          }
+        },
+        {
+          "batch_idx": 5,
+          "signals": {
+            "ema_entropy": 1.1700272347807885,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2907852976610492,
+            "drift": 0.0001976490020751953,
+            "cosine_sim": 0.9998023509979248,
+            "window_size": 50,
+            "jsd": 0.14201189577579498,
+            "current_distribution": [
+              0.2800000011920929,
+              0.03999999910593033,
+              0.6399999856948853,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8439834117889404,
+            "teacher_entropy": 1.146715760231018,
+            "student_entropy": 1.2436457872390747,
+            "teacher_student_divergence": 0.10618621855974197,
+            "restoration_count": 998,
+            "num_confident_samples": 16,
+            "mean_max_prob": 0.3841690421104431
+          }
+        },
+        {
+          "batch_idx": 6,
+          "signals": {
+            "ema_entropy": 1.1664766955029966,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2872347583832573,
+            "drift": 0.00028121471405029297,
+            "cosine_sim": 0.9997187852859497,
+            "window_size": 50,
+            "jsd": 0.14888572692871094,
+            "current_distribution": [
+              0.2199999988079071,
+              0.05999999865889549,
+              0.6800000071525574,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.726601243019104,
+            "teacher_entropy": 1.1345218420028687,
+            "student_entropy": 1.227541446685791,
+            "teacher_student_divergence": 0.07027915865182877,
+            "restoration_count": 998,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.3913123309612274
+          }
+        },
+        {
+          "batch_idx": 7,
+          "signals": {
+            "ema_entropy": 1.1689590890096428,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.28971715188990355,
+            "drift": 0.0003642439842224121,
+            "cosine_sim": 0.9996357560157776,
+            "window_size": 50,
+            "jsd": 0.13309887051582336,
+            "current_distribution": [
+              0.18000000715255737,
+              0.11999999731779099,
+              0.6399999856948853,
+              0.05999999865889549,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8549796342849731,
+            "teacher_entropy": 1.191300630569458,
+            "student_entropy": 1.2140088081359863,
+            "teacher_student_divergence": 0.05774962902069092,
+            "restoration_count": 1038,
+            "num_confident_samples": 16,
+            "mean_max_prob": 0.38037413358688354
+          }
+        },
+        {
+          "batch_idx": 8,
+          "signals": {
+            "ema_entropy": 1.171258116860998,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2920161797412586,
+            "drift": 0.0004203915596008301,
+            "cosine_sim": 0.9995796084403992,
+            "window_size": 50,
+            "jsd": 0.10544823855161667,
+            "current_distribution": [
+              0.2199999988079071,
+              0.1599999964237213,
+              0.5400000214576721,
+              0.07999999821186066,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.9776440262794495,
+            "teacher_entropy": 1.1919493675231934,
+            "student_entropy": 1.3036903142929077,
+            "teacher_student_divergence": 0.0643051415681839,
+            "restoration_count": 1014,
+            "num_confident_samples": 13,
+            "mean_max_prob": 0.3422107398509979
+          }
+        },
+        {
+          "batch_idx": 9,
+          "signals": {
+            "ema_entropy": 1.17416481831653,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2949228811967908,
+            "drift": 0.0005540847778320312,
+            "cosine_sim": 0.999445915222168,
+            "window_size": 50,
+            "jsd": 0.09840554744005203,
+            "current_distribution": [
+              0.2199999988079071,
+              0.14000000059604645,
+              0.5400000214576721,
+              0.10000000149011612,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.7492356300354004,
+            "teacher_entropy": 1.2003251314163208,
+            "student_entropy": 1.1576327085494995,
+            "teacher_student_divergence": 0.04057715833187103,
+            "restoration_count": 1035,
+            "num_confident_samples": 16,
+            "mean_max_prob": 0.3780268728733063
+          }
+        },
+        {
+          "batch_idx": 10,
+          "signals": {
+            "ema_entropy": 1.169603127172438,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2903611900526988,
+            "drift": 0.0006579160690307617,
+            "cosine_sim": 0.9993420839309692,
+            "window_size": 50,
+            "jsd": 0.08488103747367859,
+            "current_distribution": [
+              0.2199999988079071,
+              0.14000000059604645,
+              0.5,
+              0.14000000059604645,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.7813083529472351,
+            "teacher_entropy": 1.1285479068756104,
+            "student_entropy": 1.1574623584747314,
+            "teacher_student_divergence": 0.09803261607885361,
+            "restoration_count": 979,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.3966047763824463
+          }
+        },
+        {
+          "batch_idx": 11,
+          "signals": {
+            "ema_entropy": 1.160641626653833,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2813996895340938,
+            "drift": 0.0007421374320983887,
+            "cosine_sim": 0.9992578625679016,
+            "window_size": 50,
+            "jsd": 0.06660259515047073,
+            "current_distribution": [
+              0.2199999988079071,
+              0.11999999731779099,
+              0.5199999809265137,
+              0.11999999731779099,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.911753237247467,
+            "teacher_entropy": 1.0799881219863892,
+            "student_entropy": 1.1215330362319946,
+            "teacher_student_divergence": 0.09573788940906525,
+            "restoration_count": 967,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.3868167996406555
+          }
+        },
+        {
+          "batch_idx": 12,
+          "signals": {
+            "ema_entropy": 1.1705870951453712,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2913451580256319,
+            "drift": 0.0009360909461975098,
+            "cosine_sim": 0.9990639090538025,
+            "window_size": 50,
+            "jsd": 0.0828341692686081,
+            "current_distribution": [
+              0.20000000298023224,
+              0.10000000149011612,
+              0.5799999833106995,
+              0.10000000149011612,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.9481460452079773,
+            "teacher_entropy": 1.2600963115692139,
+            "student_entropy": 1.277475357055664,
+            "teacher_student_divergence": 0.04709254205226898,
+            "restoration_count": 1009,
+            "num_confident_samples": 12,
+            "mean_max_prob": 0.3468357026576996
+          }
+        },
+        {
+          "batch_idx": 13,
+          "signals": {
+            "ema_entropy": 1.1651191286957145,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.28587719157597524,
+            "drift": 0.001077413558959961,
+            "cosine_sim": 0.99892258644104,
+            "window_size": 50,
+            "jsd": 0.09676706790924072,
+            "current_distribution": [
+              0.20000000298023224,
+              0.14000000059604645,
+              0.5799999833106995,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.1034092903137207,
+            "teacher_entropy": 1.1159074306488037,
+            "student_entropy": 1.1424139738082886,
+            "teacher_student_divergence": 0.23147620260715485,
+            "restoration_count": 1003,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.40161195397377014
+          }
+        },
+        {
+          "batch_idx": 14,
+          "signals": {
+            "ema_entropy": 1.156598076765169,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2773561396454296,
+            "drift": 0.001186370849609375,
+            "cosine_sim": 0.9988136291503906,
+            "window_size": 50,
+            "jsd": 0.10990200191736221,
+            "current_distribution": [
+              0.20000000298023224,
+              0.10000000149011612,
+              0.6000000238418579,
+              0.10000000149011612,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8225459456443787,
+            "teacher_entropy": 1.0799086093902588,
+            "student_entropy": 1.169776439666748,
+            "teacher_student_divergence": 0.12535977363586426,
+            "restoration_count": 936,
+            "num_confident_samples": 12,
+            "mean_max_prob": 0.33608686923980713
+          }
+        },
+        {
+          "batch_idx": 15,
+          "signals": {
+            "ema_entropy": 1.1537026276091598,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.27446069048942046,
+            "drift": 0.0013447999954223633,
+            "cosine_sim": 0.9986552000045776,
+            "window_size": 50,
+            "jsd": 0.06615829467773438,
+            "current_distribution": [
+              0.25999999046325684,
+              0.1599999964237213,
+              0.47999998927116394,
+              0.05999999865889549,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8579555153846741,
+            "teacher_entropy": 1.1276435852050781,
+            "student_entropy": 1.1892168521881104,
+            "teacher_student_divergence": 0.23789064586162567,
+            "restoration_count": 1000,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.3528251647949219
+          }
+        },
+        {
+          "batch_idx": 16,
+          "signals": {
+            "ema_entropy": 1.1526958206206437,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2734538835009044,
+            "drift": 0.001467585563659668,
+            "cosine_sim": 0.9985324144363403,
+            "window_size": 50,
+            "jsd": 0.0614674836397171,
+            "current_distribution": [
+              0.23999999463558197,
+              0.14000000059604645,
+              0.5,
+              0.07999999821186066,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8257701992988586,
+            "teacher_entropy": 1.143634557723999,
+            "student_entropy": 1.1392011642456055,
+            "teacher_student_divergence": 0.05192597210407257,
+            "restoration_count": 997,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.3765808939933777
+          }
+        },
+        {
+          "batch_idx": 17,
+          "signals": {
+            "ema_entropy": 1.1505226307132728,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.27128069359353346,
+            "drift": 0.001626431941986084,
+            "cosine_sim": 0.9983735680580139,
+            "window_size": 50,
+            "jsd": 0.09188671410083771,
+            "current_distribution": [
+              0.20000000298023224,
+              0.20000000298023224,
+              0.5199999809265137,
+              0.03999999910593033,
+              0.03999999910593033
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.0860815048217773,
+            "teacher_entropy": 1.130963921546936,
+            "student_entropy": 1.2453181743621826,
+            "teacher_student_divergence": 0.25475800037384033,
+            "restoration_count": 1048,
+            "num_confident_samples": 11,
+            "mean_max_prob": 0.354051411151886
+          }
+        },
+        {
+          "batch_idx": 18,
+          "signals": {
+            "ema_entropy": 1.1430135738568503,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.263771636737111,
+            "drift": 0.0017823576927185059,
+            "cosine_sim": 0.9982176423072815,
+            "window_size": 50,
+            "jsd": 0.11292366683483124,
+            "current_distribution": [
+              0.20000000298023224,
+              0.14000000059604645,
+              0.5799999833106995,
+              0.07999999821186066,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.7584431171417236,
+            "teacher_entropy": 1.0754320621490479,
+            "student_entropy": 1.200061321258545,
+            "teacher_student_divergence": 0.0716378390789032,
+            "restoration_count": 1027,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.39786213636398315
+          }
+        },
+        {
+          "batch_idx": 19,
+          "signals": {
+            "ema_entropy": 1.1520162974343,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.2727743603145607,
+            "drift": 0.002004265785217285,
+            "cosine_sim": 0.9979957342147827,
+            "window_size": 50,
+            "jsd": 0.15420669317245483,
+            "current_distribution": [
+              0.14000000059604645,
+              0.20000000298023224,
+              0.6200000047683716,
+              0.03999999910593033,
+              0.0
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.8945614695549011,
+            "teacher_entropy": 1.2330408096313477,
+            "student_entropy": 1.3239319324493408,
+            "teacher_student_divergence": 0.08255131542682648,
+            "restoration_count": 953,
+            "num_confident_samples": 12,
+            "mean_max_prob": 0.3551712930202484
+          }
+        },
+        {
+          "batch_idx": 20,
+          "signals": {
+            "ema_entropy": 1.1452877302061288,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.26604579308638954,
+            "drift": 0.0022089481353759766,
+            "cosine_sim": 0.997791051864624,
+            "window_size": 50,
+            "jsd": 0.1102958619594574,
+            "current_distribution": [
+              0.1599999964237213,
+              0.14000000059604645,
+              0.6200000047683716,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.7599726915359497,
+            "teacher_entropy": 1.084730625152588,
+            "student_entropy": 1.215749979019165,
+            "teacher_student_divergence": 0.09620869904756546,
+            "restoration_count": 992,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.38281312584877014
+          }
+        },
+        {
+          "batch_idx": 21,
+          "signals": {
+            "ema_entropy": 1.1482660572908017,
+            "baseline_entropy": 0.8792419371197393,
+            "entropy_diff": 0.26902412017106236,
+            "drift": 0.0023894906044006348,
+            "cosine_sim": 0.9976105093955994,
+            "window_size": 50,
+            "jsd": 0.1102958619594574,
+            "current_distribution": [
+              0.1599999964237213,
+              0.14000000059604645,
+              0.6200000047683716,
+              0.05999999865889549,
+              0.019999999552965164
+            ],
+            "baseline_distribution": [
+              0.3075060546398163,
+              0.10411622375249863,
+              0.22760289907455444,
+              0.21791768074035645,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 0.7907209992408752,
+            "teacher_entropy": 1.1750710010528564,
+            "student_entropy": 1.211474895477295,
+            "teacher_student_divergence": 0.1526813805103302,
+            "restoration_count": 995,
+            "num_confident_samples": 14,
+            "mean_max_prob": 0.3797836899757385
+          }
+        }
+      ],
+      "num_adaptations": 22,
+      "total_batches": 22
+    },
+    {
+      "domain_name": "idrid",
+      "description": "Target domain 2: return to source domain (test forgetting)",
+      "baseline_metrics": {
+        "qwk": 0.6432078151867819,
+        "per_class_accuracy": {
+          "0": 0.5,
+          "1": 0.0,
+          "2": 0.3125,
+          "3": 0.6842105263157895,
+          "4": 0.3076923076923077
+        },
+        "num_samples": 103
+      },
+      "post_adaptation_metrics": {
+        "qwk": 0.6432078151867819,
+        "per_class_accuracy": {
+          "0": 0.5,
+          "1": 0.0,
+          "2": 0.3125,
+          "3": 0.6842105263157895,
+          "4": 0.3076923076923077
+        },
+        "num_samples": 103
+      },
+      "batch_metrics": [
+        {
+          "batch_idx": 0,
+          "accuracy": 0.3125
+        },
+        {
+          "batch_idx": 1,
+          "accuracy": 0.6875
+        },
+        {
+          "batch_idx": 2,
+          "accuracy": 0.5
+        },
+        {
+          "batch_idx": 3,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 4,
+          "accuracy": 0.4375
+        },
+        {
+          "batch_idx": 5,
+          "accuracy": 0.3125
+        }
+      ],
+      "adaptation_steps": [
+        {
+          "batch_idx": 0,
+          "signals": {
+            "ema_entropy": 1.0188374519348145,
+            "baseline_entropy": 0.8850575923901638,
+            "entropy_diff": 0.13377985954465066,
+            "drift": 4.172325134277344e-07,
+            "cosine_sim": 0.9999995827674866,
+            "window_size": 16,
+            "jsd": 0.09220291674137115,
+            "current_distribution": [
+              0.0625,
+              0.0625,
+              0.1875,
+              0.5625,
+              0.125
+            ],
+            "baseline_distribution": [
+              0.3050847351551056,
+              0.10411622375249863,
+              0.24455206096172333,
+              0.20338982343673706,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.1145517826080322,
+            "teacher_entropy": 1.0188374519348145,
+            "student_entropy": 1.1363540887832642,
+            "teacher_student_divergence": 0.06642118096351624,
+            "restoration_count": 1007,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.34029996395111084
+          }
+        },
+        {
+          "batch_idx": 1,
+          "signals": {
+            "ema_entropy": 1.0175267338752747,
+            "baseline_entropy": 0.8850575923901638,
+            "entropy_diff": 0.1324691414851109,
+            "drift": 2.384185791015625e-06,
+            "cosine_sim": 0.999997615814209,
+            "window_size": 32,
+            "jsd": 0.08456294238567352,
+            "current_distribution": [
+              0.0625,
+              0.09375,
+              0.21875,
+              0.53125,
+              0.09375
+            ],
+            "baseline_distribution": [
+              0.3050847351551056,
+              0.10411622375249863,
+              0.24455206096172333,
+              0.20338982343673706,
+              0.1428571492433548
+            ],
+            "triggered_signals": [
+              "distribution_drift"
+            ]
+          },
+          "metrics": {
+            "loss": 1.0429084300994873,
+            "teacher_entropy": 1.0057302713394165,
+            "student_entropy": 1.1095200777053833,
+            "teacher_student_divergence": 0.07952231913805008,
+            "restoration_count": 997,
+            "num_confident_samples": 15,
+            "mean_max_prob": 0.36395809054374695
+          }
+        }
+      ],
+      "num_adaptations": 2,
+      "total_batches": 6
+    }
+  ],
+  "forgetting": 0.005955557180886695,
+  "num_adaptations": 24,
+  "total_batches": 28,
+  "adaptation_rate": 0.8571428571428571,
+  "final_metrics": {
+    "qwk": 0.6432078151867819,
+    "per_class_accuracy": {
+      "0": 0.5,
+      "1": 0.0,
+      "2": 0.3125,
+      "3": 0.6842105263157895,
+      "4": 0.3076923076923077
+    },
+    "num_samples": 103
+  }
+}

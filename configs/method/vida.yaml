@@ -1,0 +1,3 @@
+method: vida
+# TODO: Implement ViDA configuration
+# Dual-rank adapters with MC-Dropout balancing

@@ -1,0 +1,15 @@
+# Sequential CTTA protocol:
+#   Source: IDRiD -> Target 1: APTOS -> Target 2: IDRiD (forgetting test)
+enabled: true
+source_domain:
+  dataset: !include ../data/idrid.yaml
+  num_batches: null
+  description: "Source domain: single camera, single clinic (IDRiD)"
+target_domains:
+  - dataset: !include ../data/aptos2019.yaml
+    num_batches: null
+    description: "Target domain 1: heterogeneous multi-site (APTOS 2019)"
+  - dataset: !include ../data/idrid.yaml
+    num_batches: null
+    description: "Target domain 2: return to source domain (test forgetting)"
+reset_weights_between_domains: false

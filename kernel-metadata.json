@@ -1,0 +1,13 @@
+{
+  "id": "<username>/medical-ctta-kaggle-setup",
+  "title": "Medical_CTTA_Kaggle_Setup",
+  "code_file": "notebooks\\00_setup_kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "enable_tpu": false
+}
