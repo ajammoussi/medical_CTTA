@@ -1,0 +1,27 @@
+# ViDA — Messidor-2 standalone (RETFound)
+method: vida
+adapt_every_batch: true
+
+# ViDA adapter ranks
+vida_rank1: 1
+vida_rank2: 128
+
+# HKA uncertainty
+uncertainty_threshold: 0.2
+vida_num_augmentations: 10
+uncertainty_scale: 0.1
+
+# Dual EMA rates
+alpha_teacher: 0.99
+alpha_vida: 0.8
+
+# Learning rates (Adam optimizer, per-param adaptive)
+vida_lr: 1e-4
+vida_model_lr: 5e-7
+
+# Pseudo-label classification loss — increased to 0.3 for gradient signal (conf=0.0 with 0.1)
+ce_loss_weight: 0.3
+pseudo_label_threshold: 0.5
+
+# Stochastic restoration
+restore_prob: 0.002

@@ -1,0 +1,20 @@
+extends: ../../../default.yaml
+output_dir: ./outputs/sequential_vida/idrid_messidor_aptos_visionfm/
+model: !include ../../../model/visionfm.yaml
+prototype:
+  temperature: 50.0
+
+sequential:
+  enabled: true
+  source_dataset:
+    name: idrid
+    data_dir: ./data/IDRiD/
+    ctta: !include ../../../vida/idrid_visionfm.yaml
+  target_datasets:
+    - name: messidor2
+      data_dir: ./data/MESSIDOR2/
+      ctta: !include ../../../vida/messidor2_visionfm_target_from_idrid.yaml
+    - name: aptos2019
+      data_dir: ./data/APTOS2019/
+      ctta: !include ../../../vida/aptos_visionfm_target_from_idrid.yaml
+  reset_weights_before_each_target: false

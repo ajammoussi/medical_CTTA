@@ -1,0 +1,7 @@
+extends: ../../default.yaml
+output_dir: ./outputs/cotta/messidor2_visionfm/
+model: !include ../../model/visionfm.yaml
+target_dataset: !include ../../data/messidor2.yaml
+ctta: !include ../../cotta/messidor2_visionfm.yaml
+prototype:
+  temperature: 50.0

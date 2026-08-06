@@ -1,0 +1,7 @@
+﻿extends: ../../default.yaml
+output_dir: ./outputs/palm/aptos_visionfm/
+model: !include ../../model/visionfm.yaml
+target_dataset: !include ../../data/aptos2019.yaml
+ctta: !include ../../palm/aptos_visionfm.yaml
+prototype:
+  temperature: 100.0

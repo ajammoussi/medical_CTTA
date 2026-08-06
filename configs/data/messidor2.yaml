@@ -1,0 +1,4 @@
+name: messidor2
+data_dir: ./data/MESSIDOR2/
+image_size: 224
+num_workers: 2

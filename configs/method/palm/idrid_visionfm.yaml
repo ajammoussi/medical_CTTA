@@ -1,0 +1,7 @@
+﻿extends: ../../default.yaml
+output_dir: ./outputs/palm/idrid_visionfm/
+model: !include ../../model/visionfm.yaml
+target_dataset: !include ../../data/idrid.yaml
+ctta: !include ../../palm/idrid_visionfm.yaml
+prototype:
+  temperature: 100.0

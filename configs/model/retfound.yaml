@@ -1,8 +1,8 @@
 # RETFound ViT-Large model parameters
 name: retfound
-checkpoint: YukunZhou/RETFound_mae_natureCFP
+checkpoint: YukunZhou/RETFound_dinov2_meh
 num_classes: 5
-freeze_layers: 20
+freeze_layers: 22
 lr: 1e-4
 weight_decay: 0.05
 layer_decay: 0.65

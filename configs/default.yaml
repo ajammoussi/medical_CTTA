@@ -1,15 +1,8 @@
-# Global experiment configuration (infrastructure & training)
+# Global experiment configuration
 seed: 42
 device: cuda
 output_dir: ./outputs/
-shared_source_dir: ./outputs/source/
-num_epochs_source: 50
 ctta_batch_size: 16
-gradient_accumulation_steps: 2
 use_amp: true
 gradient_checkpointing: true
-max_grad_norm: 1.0
-lr_scheduler:
-  name: cosine
-  warmup_epochs: 5
-  min_lr: 1e-6
+max_grad_norm: 5.0

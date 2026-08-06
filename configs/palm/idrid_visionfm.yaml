@@ -1,0 +1,30 @@
+﻿# PALM — DR-tuned official PALM (IDRiD + VisionFM)
+# Mirrors configs/method/palm/idrid_visionfm.yaml (source of truth).
+# Flat ctta-fragment used by sequential configs via !include.
+method: palm
+lr: 1e-4              # smaller LR for large VisionFM backbone
+weight_decay: 0.0
+batch_size: 16
+# Official PALM params (DR-tuned), collapse-fix
+temperature: 50.0
+layer_selection_threshold: null
+selection_percentile: 0.30
+always_blocks: 1
+min_selected_ratio: 0.05
+sensitivity_alpha: 0.5
+consistency_lambda: 0.10
+entropy_margin: 0.4
+min_confident_fraction: 0.35
+per_class_cap: 4
+min_importance: 1.0
+max_importance: 1.0
+diversity_weight: 5.0        # mean-prediction entropy regularizer (anti-collapse)
+head_lr_scale: 1.0
+max_grad_norm: 5.0
+adapt_every_batch: true
+# Collapse detection (DR safety)
+entropy_collapse_threshold: 0.5
+confidence_spike_threshold: 0.9
+confidence_spike_factor: 1.5
+confidence_ema_alpha: 0.9
+collapse_window: 3

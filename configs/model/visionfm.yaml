@@ -1,0 +1,13 @@
+# VisionFM ViT-Base model parameters
+name: visionfm
+checkpoint: fundus
+num_classes: 5
+freeze_layers: 8
+lr: 3e-4
+weight_decay: 0.05
+layer_decay: 0.65
+drop_path: 0.1
+image_size: 224
+normalize_features: true
+normalize_mean: [0.4237, 0.2609, 0.1284]
+normalize_std: [0.2948, 0.2017, 0.1367]

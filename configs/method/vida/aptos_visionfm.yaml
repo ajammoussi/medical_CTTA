@@ -1,0 +1,7 @@
+extends: ../../default.yaml
+output_dir: ./outputs/vida/aptos_visionfm/
+model: !include ../../model/visionfm.yaml
+target_dataset: !include ../../data/aptos2019.yaml
+ctta: !include ../../vida/aptos_visionfm.yaml
+prototype:
+  temperature: 100.0

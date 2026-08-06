@@ -1,0 +1,7 @@
+extends: ../../default.yaml
+output_dir: ./outputs/vida/aptos/
+model: !include ../../model/retfound.yaml
+target_dataset: !include ../../data/aptos2019.yaml
+ctta: !include ../../vida/aptos.yaml
+prototype:
+  temperature: 100.0

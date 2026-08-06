@@ -1,0 +1,28 @@
+method: vida
+adapt_every_batch: true
+
+# ViDA adapter ranks
+vida_rank1: 1        # low-rank bottleneck (domain-shared)
+vida_rank2: 128      # high-rank bottleneck (domain-specific)
+
+# HKA uncertainty
+uncertainty_threshold: 0.2
+vida_num_augmentations: 10
+uncertainty_scale: 0.1
+
+# Dual EMA rates
+alpha_teacher: 0.99   # EMA rate for original model params
+alpha_vida: 0.8        # fast EMA for adapter params
+
+# Learning rates (Adam optimizer, per-param adaptive)
+# lowered from 5e-4 to 1e-4 to prevent source degradation in sequential
+vida_lr: 1e-4
+vida_model_lr: 5e-7
+
+# Pseudo-label classification loss
+ce_loss_weight: 0.3
+pseudo_label_threshold: 0.5
+
+# Stochastic restoration: added 0.001 to prevent catastrophic forgetting
+# (CoTTA uses 0.001 for IDRiD, 0.002 for APTOS)
+restore_prob: 0.001

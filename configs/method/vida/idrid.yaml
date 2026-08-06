@@ -1,0 +1,7 @@
+extends: ../../default.yaml
+output_dir: ./outputs/vida/idrid/
+model: !include ../../model/retfound.yaml
+target_dataset: !include ../../data/idrid.yaml
+ctta: !include ../../vida/idrid.yaml
+prototype:
+  temperature: 100.0

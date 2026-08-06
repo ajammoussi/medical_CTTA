@@ -1,6 +1,0 @@
-# Shift detection parameters (shared across methods)
-entropy_threshold: 0.3
-drift_threshold: 0.05
-distribution_threshold: 0.05
-ema_momentum: 0.9
-window_size: 50

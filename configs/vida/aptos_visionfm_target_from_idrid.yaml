@@ -1,0 +1,23 @@
+# ViDA — APTOS VisionFM target from IDRiD source (cross-domain tuning)
+method: vida
+adapt_every_batch: true
+
+vida_rank1: 1
+vida_rank2: 768
+
+uncertainty_threshold: 0.15
+vida_num_augmentations: 12
+uncertainty_scale: 0.1
+
+alpha_teacher: 0.99
+alpha_vida: 0.8
+
+vida_lr: 1e-5
+vida_model_lr: 5e-7
+
+ce_loss_weight: 0.0
+# raised threshold from 0.7 to 0.75 for more conservative pseudo-labels
+pseudo_label_threshold: 0.75
+
+# increased restore_prob for cross-domain (more forgetting risk)
+restore_prob: 0.003

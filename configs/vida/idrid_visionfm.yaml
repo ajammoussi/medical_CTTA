@@ -1,0 +1,28 @@
+method: vida
+adapt_every_batch: true
+
+# ViDA adapter ranks
+vida_rank1: 1
+vida_rank2: 768      # high-rank = embed_dim for VisionFM (768-dim ViT-Base)
+
+# HKA uncertainty
+uncertainty_threshold: 0.15
+vida_num_augmentations: 12
+uncertainty_scale: 0.1
+
+# Dual EMA rates
+alpha_teacher: 0.99
+alpha_vida: 0.8
+
+# Learning rates (Adam optimizer, per-param adaptive)
+# VisionFM has 42.5M adapter params (2.2x RetFound), needs 50x lower lr
+vida_lr: 1e-5
+vida_model_lr: 5e-7
+
+# Pseudo-label classification loss — DISABLED for overconfident medical ViTs
+# VisionFM is extremely overconfident (conf=1.0 on all steps), CE causes collapse
+ce_loss_weight: 0.0
+pseudo_label_threshold: 0.7
+
+# Stochastic restoration (0 = disabled, per ViDA paper)
+restore_prob: 0.0

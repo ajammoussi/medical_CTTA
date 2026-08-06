@@ -1,0 +1,15 @@
+method: cotta
+adapt_every_batch: true
+confidence_threshold: 0.40
+teacher_temperature: 0.3
+entropy_weight: 0.0
+diversity_weight: 0.05
+adapt_last_n_blocks: 6
+lr: 5e-5
+head_lr_multiplier: 3.0
+num_augmentations: 12
+restore_prob: 0.01
+ema_alpha: 0.999
+per_class_cap: 2
+kl_label_smoothing: 0.0
+confidence_gated_restore: true

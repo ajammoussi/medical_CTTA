@@ -1,0 +1,7 @@
+extends: ../../default.yaml
+output_dir: ./outputs/vida/messidor2/
+model: !include ../../model/retfound.yaml
+target_dataset: !include ../../data/messidor2.yaml
+ctta: !include ../../vida/messidor2.yaml
+prototype:
+  temperature: 100.0

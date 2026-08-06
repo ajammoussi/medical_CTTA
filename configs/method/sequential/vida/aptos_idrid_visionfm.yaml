@@ -1,0 +1,17 @@
+extends: ../../../default.yaml
+output_dir: ./outputs/sequential_vida/aptos_idrid_visionfm/
+model: !include ../../../model/visionfm.yaml
+prototype:
+  temperature: 50.0
+
+sequential:
+  enabled: true
+  source_dataset:
+    name: aptos2019
+    data_dir: ./data/APTOS2019/
+    ctta: !include ../../../vida/aptos_visionfm.yaml
+  target_datasets:
+    - name: idrid
+      data_dir: ./data/IDRiD/
+      ctta: !include ../../../vida/idrid_visionfm_target_from_aptos.yaml
+  reset_weights_before_each_target: false

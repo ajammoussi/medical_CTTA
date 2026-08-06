@@ -1,0 +1,20 @@
+extends: ../../../default.yaml
+output_dir: ./outputs/sequential_cotta/messidor_idrid_aptos/
+model: !include ../../../model/retfound.yaml
+prototype:
+  temperature: 100.0
+
+sequential:
+  enabled: true
+  source_dataset:
+    name: messidor2
+    data_dir: ./data/MESSIDOR2/
+    ctta: !include ../../../cotta/messidor2.yaml
+  target_datasets:
+    - name: idrid
+      data_dir: ./data/IDRiD/
+      ctta: !include ../../../cotta/idrid_target_from_aptos.yaml
+    - name: aptos2019
+      data_dir: ./data/APTOS2019/
+      ctta: !include ../../../cotta/aptos_target_from_idrid.yaml
+  reset_weights_before_each_target: false
