@@ -22,5 +22,7 @@ setup(
         "numpy>=1.24.0",
         "einops>=0.6.0",
         "jupyter>=1.0.0",
+        "gdown>=4.7.0",
+        "kagglehub>=0.5.0",
     ],
 )

@@ -4,15 +4,15 @@ from src.config import ExperimentConfig, load_config
 from src.evaluation.runner import CTTARunner
 
 
-def run_cotta(config: ExperimentConfig) -> dict:
+def run_vida(config: ExperimentConfig) -> dict:
     logger = logging.getLogger(__name__)
-    logger.info("Starting CTTA experiment")
+    logger.info("Starting ViDA experiment")
 
     runner = CTTARunner(config)
     results = runner.run()
 
     ds = results.get("dataset", "?")
-    logger.info(f"CTTA completed on {ds}")
+    logger.info(f"ViDA completed on {ds}")
     logger.info(f"Baseline QWK: {results['baseline_metrics']['qwk']:.4f}")
     logger.info(f"Post-adaptation QWK: {results['final_metrics']['qwk']:.4f}")
 
@@ -31,5 +31,5 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         config = load_config(sys.argv[1])
     else:
-        config = load_config("configs/method/cotta/idrid.yaml")
-    run_cotta(config)
+        config = load_config("configs/method/vida/idrid.yaml")
+    run_vida(config)

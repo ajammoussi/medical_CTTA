@@ -20,6 +20,11 @@ def per_class_accuracy(y_true: List[int], y_pred: List[int], num_classes: int = 
     return per_class
 
 
+def overall_accuracy(y_true: List[int], y_pred: List[int]) -> float:
+    """Compute overall accuracy (fraction of correct predictions)."""
+    return accuracy_score(y_true, y_pred)
+
+
 def forgetting_metric(perf_before: float, perf_after: float) -> float:
     """Compute forgetting metric (difference in source performance)."""
     return perf_before - perf_after

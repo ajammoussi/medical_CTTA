@@ -72,7 +72,6 @@ def save_adaptation_checkpoint(
     adapter_state_dict: Optional[Dict[str, Any]] = None,
     domain_index: int = 0,
     batch_index: int = 0,
-    shift_detector_state: Optional[Dict[str, Any]] = None,
     extra: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Save an adaptation checkpoint for CTTA resume."""
@@ -81,7 +80,6 @@ def save_adaptation_checkpoint(
         "domain_index": domain_index,
         "batch_index": batch_index,
         "adapter_state_dict": adapter_state_dict,
-        "shift_detector_state": shift_detector_state,
         "rng_state": {
             "python": random.getstate(),
             "numpy": np.random.get_state(),
@@ -135,12 +133,6 @@ def find_latest_checkpoint(checkpoint_dir: str, pattern: str = "*.pth") -> Optio
     return str(latest)
 
 
-def find_latest_epoch_checkpoint(checkpoint_dir: str) -> Optional[str]:
-    """Find the rolling checkpoint for source training (not per-epoch)."""
-    ckpt = Path(checkpoint_dir) / "checkpoint.pth"
-    return str(ckpt) if ckpt.exists() else None
-
-
 def find_latest_adaptation_checkpoint(checkpoint_dir: str) -> Optional[str]:
     """Find the rolling adaptation checkpoint."""
     ckpt = Path(checkpoint_dir) / "adapt_checkpoint.pth"
@@ -154,10 +146,4 @@ def save_results(results: Dict[str, Any], path: str) -> None:
         json.dump(results, f, indent=2)
 
 
-def save_train_metrics(path: str, epoch: int, loss: float, lr: float, val_qwk: float, best_qwk: float) -> None:
-    """Append a single epoch's metrics as a JSON line (JSONL format for easy plotting)."""
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    entry = {"epoch": epoch, "loss": round(float(loss), 4), "lr": float(lr),
-             "val_qwk": round(float(val_qwk), 4), "best_qwk": round(float(best_qwk), 4)}
-    with open(path, "a") as f:
-        f.write(json.dumps(entry) + "\n")
+

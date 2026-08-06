@@ -72,10 +72,45 @@ class DatasetDownloader:
             force=force,
         )
 
+    def download_messidor2(self, force: bool = False) -> Path:
+        dest_path = self.data_dir / "MESSIDOR2"
+        if dest_path.exists() and not force:
+            logger.info("Dataset already exists at %s, skipping", dest_path)
+            return dest_path
+
+        # Try kagglehub download first
+        try:
+            return self.download_kaggle_dataset(
+                dataset_slug="mariaherrerot/messidor2preprocess",
+                dest_name="MESSIDOR2",
+                force=force,
+            )
+        except Exception as e:
+            logger.warning("kagglehub download failed: %s", e)
+
+        # Fallback: check /kaggle/input/ for manually attached dataset
+        kaggle_input_candidates = [
+            "/kaggle/input/messidor2preprocess",
+            "/kaggle/input/messidor-2",
+            "/kaggle/input/messidor2",
+        ]
+        for candidate in kaggle_input_candidates:
+            if os.path.isdir(candidate):
+                logger.info("Found Messidor-2 at %s, copying to %s", candidate, dest_path)
+                dest_path.mkdir(parents=True, exist_ok=True)
+                shutil.copytree(candidate, dest_path, dirs_exist_ok=True)
+                return dest_path
+
+        raise FileNotFoundError(
+            f"Could not download or find Messidor-2 dataset. "
+            f"Tried kagglehub and {kaggle_input_candidates}"
+        )
+
     def download_all(self, force: bool = False) -> dict:
         paths = {}
         paths["idrid"] = self.download_idrid(force=force)
         paths["aptos2019"] = self.download_aptos2019(force=force)
+        paths["messidor2"] = self.download_messidor2(force=force)
         return paths
 
     def verify_datasets(self) -> dict:
@@ -93,5 +128,12 @@ class DatasetDownloader:
             "path": str(aptos_path),
             "has_images": any(aptos_path.rglob("*.png")) if aptos_path.exists() else False,
             "has_csv": any(aptos_path.rglob("*.csv")) if aptos_path.exists() else False,
+        }
+        messidor_path = self.data_dir / "MESSIDOR2"
+        results["messidor2"] = {
+            "exists": messidor_path.exists(),
+            "path": str(messidor_path),
+            "has_images": any(messidor_path.rglob("*.[jJ][pP][gG]")) or any(messidor_path.rglob("*.[pP][nN][gG]")) if messidor_path.exists() else False,
+            "has_csv": any(messidor_path.rglob("*.csv")) if messidor_path.exists() else False,
         }
         return results

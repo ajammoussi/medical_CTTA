@@ -10,13 +10,16 @@ class CTTAAdapter(ABC):
 
     @abstractmethod
     def setup(self, model: FoundationModel,
-              source_snapshot: Optional[Dict[str, torch.Tensor]] = None) -> None:
+              source_snapshot: Optional[Dict[str, torch.Tensor]] = None,
+              pretrained_snapshot: Optional[Dict[str, torch.Tensor]] = None) -> None:
         """Setup adapter with model and optional source snapshot.
 
         Args:
             model: The foundation model to adapt.
             source_snapshot: Dict mapping param names to source-weight tensors
                 (used by CoTTA for stochastic restore; can be None for other methods).
+            pretrained_snapshot: Dict mapping param names to pretrained-weight tensors
+                (used by CoTTA for teacher ensemble in cross-domain; can be None).
         """
         pass
 

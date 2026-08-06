@@ -5,4 +5,4 @@ from src.evaluation.metrics import (
     adaptation_trigger_rate,
     recovery_speed
 )
-from src.evaluation.runner import CTTARunner
+from src.evaluation.runner import CTTARunner, SequentialCTTARunner

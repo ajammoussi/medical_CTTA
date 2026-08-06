@@ -63,8 +63,9 @@ class IDRiDDataset(DatasetAdapter):
         image_size: int = 224,
         train: bool = True,
         train_ratio: float = 0.8,
+        **kwargs,
     ):
-        super().__init__(data_dir, image_size, train)
+        super().__init__(data_dir, image_size, train, **kwargs)
         self.data_dir = data_dir
         self.image_size = image_size
         self.train = train
