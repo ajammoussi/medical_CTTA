@@ -48,7 +48,7 @@ def test_palm_config_defaults():
     assert config.ctta.diversity_weight == 5.0
     assert config.ctta.head_lr_scale == 1.0
     assert config.ctta.adapt_every_batch is True
-    assert config.prototype.temperature == 50.0
+    assert config.prototype.temperature == 100.0 
     # Collapse detection params
     assert config.ctta.entropy_collapse_threshold == 0.5
     assert config.ctta.confidence_spike_threshold == 0.9
@@ -67,7 +67,7 @@ def test_palm_config_idrid():
     assert config.ctta.max_importance == 1.0
     assert config.ctta.diversity_weight == 5.0
     assert config.ctta.sensitivity_alpha == 0.5
-    assert config.prototype.temperature == 50.0
+    assert config.prototype.temperature == 100.0
 
 
 def test_palm_config_aptos_visionfm():
@@ -80,7 +80,7 @@ def test_palm_config_aptos_visionfm():
     assert config.ctta.max_importance == 1.0
     assert config.ctta.diversity_weight == 5.0
     assert config.ctta.sensitivity_alpha == 0.5
-    assert config.prototype.temperature == 50.0
+    assert config.prototype.temperature == 100.0
 
 
 def test_palm_config_idrid_visionfm():
@@ -93,7 +93,7 @@ def test_palm_config_idrid_visionfm():
     assert config.ctta.max_importance == 1.0
     assert config.ctta.diversity_weight == 5.0
     assert config.ctta.sensitivity_alpha == 0.5
-    assert config.prototype.temperature == 50.0
+    assert config.prototype.temperature == 100.0
 
 
 def test_config_validation():

@@ -12,7 +12,8 @@ import torch
 import torch.nn.functional as F
 import logging
 from pathlib import Path
-from typing import Dict, Any
+from collections import deque
+from typing import Dict, Any, Optional, Deque
 from torch.utils.data import DataLoader
 
 from src.config import ExperimentConfig
@@ -24,6 +25,8 @@ from src.adapters.base import CTTAAdapter
 from src.evaluation.metrics import quadratic_weighted_kappa, per_class_accuracy, overall_accuracy
 from src.utils.checkpointing import save_results
 from src.utils.logging import setup_logging
+from src.utils.metrics import class_distribution_proportions
+from src.data.fullstream import build_adaptation_stream
 
 
 logger = logging.getLogger(__name__)
@@ -278,7 +281,134 @@ class BaseRunnerMixin:
         save_results(results, str(self.output_dir / "ctta_results.json"))
         logger.info(f"Results saved to {self.output_dir / 'ctta_results.json'}")
 
-    def _adapt_log_line(self, batch_idx: int, metrics: Dict[str, Any]) -> str:
+    def _telemetry_enabled(self) -> bool:
+        """C0 telemetry is gated on the agentic master switch (Phase 0 exit
+        criterion: a legacy run must stay byte-identical to past results)."""
+        return bool(getattr(getattr(self.config, "ctta", None), "agents_enabled", False))
+
+    def _use_full_stream(self) -> bool:
+        """Agentic full-stream adaptation (``stream_split: "full"``).
+
+        Only engaged when ``agents_enabled``; otherwise the legacy test-only
+        adaptation stream is used byte-for-byte (Phase 0 / AGENTS.md protocol).
+        """
+        if not self._telemetry_enabled():
+            return False
+        return str(getattr(getattr(self.config, "ctta", None), "stream_split", "test")) == "full"
+
+    def _build_adaptation_dataset(self, dataset_config) -> object:
+        """Dataset for the adaptation loop.
+
+        - agentic full mode: ``ConcatDataset(train, test)`` normalized, no
+          augmentation (deterministic, matches the C1 characterization stream).
+        - otherwise: the legacy test-only split (unchanged behavior).
+        """
+        if self._use_full_stream():
+            return build_adaptation_stream(
+                dataset_config,
+                normalize_mean=self.config.model.normalize_mean,
+                normalize_std=self.config.model.normalize_std,
+                augment=False,
+            )
+        dataset_class = DatasetRegistry.get(dataset_config.name)
+        return dataset_class(
+            data_dir=dataset_config.data_dir,
+            image_size=dataset_config.image_size,
+            train=False,
+            normalize_mean=self.config.model.normalize_mean,
+            normalize_std=self.config.model.normalize_std,
+        )
+
+    def _telemetry_window(self) -> int:
+        """Rolling window for the windowed class-distribution telemetry field."""
+        return int(getattr(getattr(self.config, "ctta", None), "streaming_window", 200))
+
+    def _step_entry(self, batch_idx: int, metrics: Dict[str, Any],
+                    telemetry: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Build one ``adaptation_steps`` entry.
+
+        A legacy entry (no telemetry) has exactly the keys ``batch_idx /
+        signals / metrics`` — the historic shape — so disabled runs stay
+        byte-identical to every past result JSON."""
+        entry = {
+            "batch_idx": batch_idx,
+            "signals": {},
+            "metrics": metrics,
+        }
+        if telemetry:
+            entry["telemetry"] = telemetry
+        return entry
+
+    def _record_telemetry(
+        self,
+        model: FoundationModel,
+        batch_idx: int,
+        images: torch.Tensor,
+        logits: torch.Tensor,
+        batch_acc: float,
+        pred_window: Deque[int],
+        adapter_metrics: Optional[Dict[str, Any]] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Build the Component C0 per-batch telemetry dict.
+
+        Deterministic and forward-only: the extra ``extract_embedding`` forward
+        runs under ``no_grad`` with the model in eval mode, so it cannot change
+        any training result (Phase 0 DoD: identical QWK, behavior unchanged).
+
+        Returns ``None`` when telemetry is disabled — the caller then leaves the
+        existing ``adaptation_steps`` entries untouched (byte-identical JSON).
+        """
+        if not self._telemetry_enabled():
+            return None
+
+        with torch.no_grad():
+            embeddings = model.extract_embedding(images)                 # (B, D)
+            batch_centroid = F.normalize(
+                F.normalize(embeddings, dim=1).mean(dim=0).unsqueeze(0), dim=1
+            ).squeeze(0)
+
+        probs = torch.softmax(logits, dim=-1)
+        preds = torch.argmax(logits, dim=-1).tolist()
+        pred_window.extend(preds)
+        while len(pred_window) > self._telemetry_window():
+            pred_window.popleft()
+
+        per_sample_entropy = -torch.sum(
+            probs * torch.log(probs.clamp_min(1e-12)), dim=1
+        )
+
+        telemetry: Dict[str, Any] = {
+            "batch_idx": batch_idx,
+            "n_samples": int(images.size(0)),
+            "cls_centroid_l2": batch_centroid.cpu().tolist(),
+            "class_distribution": class_distribution_proportions(
+                list(pred_window), model.get_num_classes(), self._telemetry_window()
+            ),
+            "pred_entropy_mean": float(per_sample_entropy.mean().item()),
+            "batch_accuracy": float(batch_acc),
+            "mean_max_prob": float(probs.max(dim=1).values.mean().item()),
+        }
+
+        method = str(getattr(getattr(self.config, "ctta", None), "method", ""))
+        if adapter_metrics:
+            if method == "vida":
+                lam_low = adapter_metrics.get("lambda_low")
+                lam_high = adapter_metrics.get("lambda_high")
+                if lam_low is not None and lam_high is not None:
+                    telemetry["vida_scales"] = {
+                        "lambda_low": float(lam_low),
+                        "lambda_high": float(lam_high),
+                    }
+            n_conf = adapter_metrics.get("num_confident_samples")
+            restored = adapter_metrics.get("restoration_count")
+            if n_conf is not None:
+                telemetry["n_confident"] = int(n_conf)
+            if restored is not None:
+                telemetry["restored"] = int(restored)
+        return telemetry
+
+    def _adapt_log_line(self, batch_idx: int, metrics: Dict[str, Any],
+                        telemetry: Optional[Dict[str, Any]] = None) -> str:
         """Build the per-step adapt log line from adapter metrics.
 
         CoTTA reports KL / confident-sample / teacher confidence; PALM reports
@@ -296,30 +426,37 @@ class BaseRunnerMixin:
             n_cand = metrics.get("n_candidate_params", -1)
             coverage = (f"{100.0 * n_sel_mass / n_cand:.1f}%"
                         if n_cand and n_cand > 0 and n_sel_mass >= 0 else "n/a")
-            return (
+            line = (
                 f"{base}, entropy={ent:.4f}, "
                 f"conf_samples={metrics.get('num_confident_samples', -1)}, "
                 f"selected_mass={n_sel_mass:,}/{n_cand:,} ({coverage})"
             )
-
-        if method == "vida":
+        elif method == "vida":
             unc = metrics.get("uncertainty", -1.0)
             lam_l = metrics.get("lambda_low", -1.0)
             lam_h = metrics.get("lambda_high", -1.0)
             kl = metrics.get("kl_loss", -1.0)
             ce = metrics.get("ce_loss", -1.0)
             conf = metrics.get("confidence_frac", -1.0)
-            return (
+            line = (
                 f"{base}, kl={kl:.4f}, ce={ce:.4f}, "
                 f"conf={conf:.2f}, unc={unc:.4f}, "
                 f"lam_low={lam_l:.3f}, lam_high={lam_h:.3f}, "
                 f"restored={metrics.get('restoration_count', 0)}"
             )
+        else:
+            kl = metrics.get("kl_loss", -1.0)
+            n_conf = metrics.get("num_confident_samples", -1)
+            teacher_mmp = metrics.get("teacher_mean_max_prob", -1.0)
+            line = (
+                f"{base}, kl={kl:.4f}, conf_samples={n_conf}, "
+                f"teacher_max_prob={teacher_mmp:.4f}"
+            )
 
-        kl = metrics.get("kl_loss", -1.0)
-        n_conf = metrics.get("num_confident_samples", -1)
-        teacher_mmp = metrics.get("teacher_mean_max_prob", -1.0)
-        return (
-            f"{base}, kl={kl:.4f}, conf_samples={n_conf}, "
-            f"teacher_max_prob={teacher_mmp:.4f}"
-        )
+        if telemetry:
+            line += (
+                f" [tel] ent={telemetry.get('pred_entropy_mean', float('nan')):.4f}, "
+                f"mmp={telemetry.get('mean_max_prob', float('nan')):.4f}, "
+                f"acc={telemetry.get('batch_accuracy', float('nan')):.4f}"
+            )
+        return line

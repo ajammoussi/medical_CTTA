@@ -131,6 +131,21 @@ class CTTAConfig(BaseModel):
     vida_model_lr: float = 5e-7                     # learning rate for original model params (via EMA)
     ce_loss_weight: float = 1.0                     # weight for pseudo-label CE loss
     pseudo_label_threshold: float = 0.5             # confidence threshold for pseudo-labels
+    # Agentic layer (see Agentic_CTTA_New_Architecture.md §11). All optional —
+    # YAML untouched (or agents_enabled false) reproduces the legacy behavior.
+    agents_enabled: bool = False                    # master switch for the agentic layer + C0 telemetry
+    severity_tier: str = "moderate"                 # mild | moderate | severe (C3/C4 decision)
+    freeze_controller: Dict[str, Any] = {}          # {window, match_threshold, related_threshold, confirm_batches, confirm_batch_stride}
+    bank_max_entries: int = 20                      # LRU cap for C2
+    orchestrator_cache: bool = True                 # replay cached LLM decisions (C3)
+    llm_model: str = "qwen/qwen3.6-27b"             # Cerebras (OpenAI-compatible), Apache-2.0
+    llm_api_key_env: str = "CEREBRAS_API_KEY"
+    llm_base_url: str = "https://api.cerebras.ai/v1"
+    streaming_window: int = 200                     # HARD CAPPED at stream length: min(200, n_stream)
+    small_domain_threshold: int = 128               # n_stream < this -> zero-adapt revert + end verdict
+    stream_split: str = "full"                      # "full" (train+val+test) agentic; "test" = legacy runs
+    use_labels_for_classes_seen: bool = True        # benchmark mode; False in deployment -> prediction-estimated
+    min_quality_to_protect: float = 0.4             # best-per-model entries below this are still LRU-evictable (C2)
 
 
 class PrototypeConfig(BaseModel):

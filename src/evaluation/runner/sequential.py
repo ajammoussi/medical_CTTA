@@ -14,6 +14,7 @@ how much performance degrades on previously seen domains.
 
 import torch
 import logging
+from collections import deque
 from pathlib import Path
 from typing import Dict, Any
 from torch.utils.data import DataLoader
@@ -21,7 +22,6 @@ from tqdm import tqdm
 
 from src.config import ExperimentConfig
 from src.models.base import FoundationModel
-from src.data.registry import DatasetRegistry
 from src.adapters.base import CTTAAdapter
 from src.utils.seed import set_seed
 from src.utils.logging import setup_logging
@@ -292,14 +292,7 @@ class SequentialCTTARunner(BaseRunnerMixin):
         snap = {n: p.detach().cpu() for n, p in model.named_parameters() if p.requires_grad}
         adapter.setup(model, snap, pretrained_snapshot=pretrained_snapshot)
 
-        dataset_class = DatasetRegistry.get(dataset_config.name)
-        dataset = dataset_class(
-            data_dir=dataset_config.data_dir,
-            image_size=dataset_config.image_size,
-            train=False,
-            normalize_mean=self.config.model.normalize_mean,
-            normalize_std=self.config.model.normalize_std,
-        )
+        dataset = self._build_adaptation_dataset(dataset_config)
 
         is_palm = domain_ctta.method == "palm"
         always_adapt = is_palm or domain_ctta.adapt_every_batch
@@ -325,6 +318,7 @@ class SequentialCTTARunner(BaseRunnerMixin):
 
         batch_accuracies = []
         num_adaptations = 0
+        pred_window = deque()
 
         pbar = tqdm(enumerate(loader), total=min(len(loader), max_batches),
                     desc=f"Adapting to {dataset_config.name}")
@@ -338,6 +332,7 @@ class SequentialCTTARunner(BaseRunnerMixin):
             with torch.no_grad():
                 logits = model(images)
 
+            metrics = {}
             if always_adapt:
                 num_adaptations += 1
                 model.backbone.train()
@@ -346,23 +341,27 @@ class SequentialCTTARunner(BaseRunnerMixin):
                 model.backbone.eval()
                 model.classifier.eval()
 
-                forcing = metrics.get("class_forcing_active", False)
-                starvation = metrics.get("starvation_counts", {})
-                log_line = self._adapt_log_line(batch_idx, metrics)
-                if forcing:
-                    starving = {k: v for k, v in starvation.items() if v >= 3}
-                    log_line += f" [FORCED] starvation={starving}"
-                logger.info(log_line)
-                result.adaptation_steps.append({
-                    "batch_idx": batch_idx,
-                    "signals": {},
-                    "metrics": metrics,
-                })
-
             with torch.no_grad():
                 logits = model(images)
                 preds = torch.argmax(logits, dim=-1)
                 batch_acc = (preds == labels).float().mean().item()
+
+            if always_adapt:
+                telemetry = self._record_telemetry(
+                    model, batch_idx=batch_idx, images=images, logits=logits,
+                    batch_acc=batch_acc, pred_window=pred_window,
+                    adapter_metrics=metrics,
+                )
+                entry = self._step_entry(batch_idx, metrics, telemetry)
+                result.adaptation_steps.append(entry)
+
+                forcing = metrics.get("class_forcing_active", False)
+                starvation = metrics.get("starvation_counts", {})
+                log_line = self._adapt_log_line(batch_idx, metrics, telemetry)
+                if forcing:
+                    starving = {k: v for k, v in starvation.items() if v >= 3}
+                    log_line += f" [FORCED] starvation={starving}"
+                logger.info(log_line)
 
             batch_accuracies.append(batch_acc)
             result.batch_metrics.append({

@@ -7,6 +7,7 @@ Every batch is adapted (CoTTA-style, matching the official paper). No shift dete
 
 import torch
 import logging
+from collections import deque
 from pathlib import Path
 from typing import Dict, Any
 from torch.utils.data import DataLoader
@@ -14,7 +15,6 @@ from tqdm import tqdm
 
 from src.config import ExperimentConfig
 from src.models.base import FoundationModel
-from src.data.registry import DatasetRegistry
 from src.adapters.base import CTTAAdapter
 from src.utils.seed import set_seed
 from src.utils.logging import setup_logging
@@ -143,14 +143,7 @@ class CTTARunner(BaseRunnerMixin):
         snap = {n: p.detach().cpu() for n, p in model.named_parameters() if p.requires_grad}
         adapter.setup(model, snap)
 
-        dataset_class = DatasetRegistry.get(dataset_config.name)
-        dataset = dataset_class(
-            data_dir=dataset_config.data_dir,
-            image_size=dataset_config.image_size,
-            train=False,
-            normalize_mean=self.config.model.normalize_mean,
-            normalize_std=self.config.model.normalize_std,
-        )
+        dataset = self._build_adaptation_dataset(dataset_config)
 
         n_batches = len(dataset) // self.config.ctta.batch_size
         if len(dataset) % self.config.ctta.batch_size != 0:
@@ -172,6 +165,7 @@ class CTTARunner(BaseRunnerMixin):
 
         batch_accuracies = []
         num_adaptations = 0
+        pred_window = deque()
 
         pbar = tqdm(enumerate(loader), total=min(len(loader), max_batches),
                     desc=f"Adapting to {dataset_config.name}")
@@ -192,18 +186,20 @@ class CTTARunner(BaseRunnerMixin):
             model.backbone.eval()
             model.classifier.eval()
 
-            logger.info(self._adapt_log_line(batch_idx, metrics))
-            result.adaptation_steps.append({
-                "batch_idx": batch_idx,
-                "signals": {},
-                "metrics": metrics,
-            })
-
             with torch.no_grad():
                 logits = model(images)
                 preds = torch.argmax(logits, dim=-1)
                 batch_acc = (preds == labels).float().mean().item()
 
+            telemetry = self._record_telemetry(
+                model, batch_idx=batch_idx, images=images, logits=logits,
+                batch_acc=batch_acc, pred_window=pred_window,
+                adapter_metrics=metrics,
+            )
+            entry = self._step_entry(batch_idx, metrics, telemetry)
+            result.adaptation_steps.append(entry)
+
+            logger.info(self._adapt_log_line(batch_idx, metrics, telemetry))
             batch_accuracies.append(batch_acc)
             result.batch_metrics.append({
                 "batch_idx": batch_idx,
