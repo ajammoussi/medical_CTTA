@@ -143,6 +143,12 @@ class CTTARunner(BaseRunnerMixin):
         snap = {n: p.detach().cpu() for n, p in model.named_parameters() if p.requires_grad}
         adapter.setup(model, snap)
 
+        # Methods that need a source warmup (e.g. EcoTTA) train their meta
+        # networks on the train split before adaptation begins.
+        if hasattr(adapter, "warmup"):
+            logger.info(f"Warming up on {dataset_config.name} train split")
+            adapter.warmup(self._build_train_loader(dataset_config))
+
         dataset_class = DatasetRegistry.get(dataset_config.name)
         dataset = dataset_class(
             data_dir=dataset_config.data_dir,

@@ -222,7 +222,62 @@ class BaseRunnerMixin:
                 ce_loss_weight=cfg.ce_loss_weight,
                 pseudo_label_threshold=cfg.pseudo_label_threshold,
             )
+        elif method == "ecotta":
+            return dict(
+                ecotta_num_partitions=cfg.ecotta_num_partitions,
+                ecotta_partition_sizes=cfg.ecotta_partition_sizes,
+                ecotta_meta_hidden_scale=cfg.ecotta_meta_hidden_scale,
+                ecotta_reg_lambda=cfg.ecotta_reg_lambda,
+                ecotta_entropy_margin=cfg.entropy_margin,
+                ecotta_warmup_epochs=cfg.ecotta_warmup_epochs,
+                ecotta_warmup_lr=cfg.ecotta_warmup_lr,
+                ecotta_tta_lr=cfg.ecotta_tta_lr,
+                ecotta_min_confident_fraction=cfg.ecotta_min_confident_fraction,
+                ecotta_per_class_cap=cfg.ecotta_per_class_cap,
+                ecotta_grad_checkpointing=self.config.gradient_checkpointing,
+            )
+        elif method == "lcotta":
+            return dict(
+                lcotta_subspace_dim=cfg.lcotta_subspace_dim,
+                lcotta_queue_length=cfg.lcotta_queue_length,
+                lcotta_sample_interval=cfg.lcotta_sample_interval,
+                lcotta_entropy_margin=cfg.entropy_margin,
+                lcotta_momentum=cfg.lcotta_momentum,
+                lcotta_cosine_filter=cfg.lcotta_cosine_filter,
+                lcotta_cosine_threshold=cfg.lcotta_cosine_threshold,
+                lcotta_prob_ema=cfg.lcotta_prob_ema,
+                lcotta_min_confident_fraction=cfg.lcotta_min_confident_fraction,
+                lcotta_per_class_cap=cfg.lcotta_per_class_cap,
+                lcotta_adapt_head=cfg.lcotta_adapt_head,
+                lcotta_head_lr_multiplier=cfg.lcotta_head_lr_multiplier,
+                lcotta_optimizer=cfg.lcotta_optimizer,
+                lcotta_prior_alignment_weight=cfg.lcotta_prior_alignment_weight,
+                lcotta_head_anchor_weight=cfg.lcotta_head_anchor_weight,
+            )
         return {}
+
+    def _build_train_loader(self, dataset_config):
+        """Build a train-split DataLoader for the given dataset config.
+
+        Used by methods that warm up on the source train split before adaptation
+        (e.g. EcoTTA's source CE warmup).
+        """
+        dataset_class = DatasetRegistry.get(dataset_config.name)
+        dataset = dataset_class(
+            data_dir=dataset_config.data_dir,
+            image_size=dataset_config.image_size,
+            train=True,
+            normalize_mean=self.config.model.normalize_mean,
+            normalize_std=self.config.model.normalize_std,
+        )
+        return DataLoader(
+            dataset,
+            batch_size=self.config.ctta_batch_size,
+            shuffle=True,
+            num_workers=dataset_config.num_workers,
+            pin_memory=True,
+            persistent_workers=(dataset_config.num_workers > 0),
+        )
 
     def _evaluate_model(
         self,
@@ -314,6 +369,27 @@ class BaseRunnerMixin:
                 f"conf={conf:.2f}, unc={unc:.4f}, "
                 f"lam_low={lam_l:.3f}, lam_high={lam_h:.3f}, "
                 f"restored={metrics.get('restoration_count', 0)}"
+            )
+
+        if method == "lcotta":
+            ent = metrics.get("student_entropy", -1.0)
+            n_conf = metrics.get("num_confident_samples", -1)
+            q_len = metrics.get("queue_len", -1)
+            active = metrics.get("subspace_active", False)
+            ratio = metrics.get("proj_norm_ratio", -1.0)
+            return (
+                f"{base}, entropy={ent:.4f}, conf_samples={n_conf}, "
+                f"queue={q_len}, subspace={'on' if active else 'off'}, "
+                f"proj_ratio={ratio:.3f}"
+            )
+
+        if method == "ecotta":
+            ent = metrics.get("student_entropy", -1.0)
+            reg = metrics.get("reg_loss", -1.0)
+            ent_loss = metrics.get("entropy_loss", -1.0)
+            return (
+                f"{base}, entropy={ent:.4f}, ent_loss={ent_loss:.4f}, "
+                f"reg={reg:.4f}, conf_samples={metrics.get('num_confident_samples', -1)}"
             )
 
         kl = metrics.get("kl_loss", -1.0)

@@ -1,0 +1,7 @@
+﻿extends: ../../default.yaml
+output_dir: ./outputs/lcotta/idrid/
+model: !include ../../model/retfound.yaml
+target_dataset: !include ../../data/idrid.yaml
+ctta: !include ../../lcotta/idrid.yaml
+prototype:
+  temperature: 100.0

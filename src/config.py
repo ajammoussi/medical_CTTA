@@ -131,6 +131,32 @@ class CTTAConfig(BaseModel):
     vida_model_lr: float = 5e-7                     # learning rate for original model params (via EMA)
     ce_loss_weight: float = 1.0                     # weight for pseudo-label CE loss
     pseudo_label_threshold: float = 0.5             # confidence threshold for pseudo-labels
+    # EcoTTA-specific params (arXiv 2303.01904)
+    ecotta_num_partitions: int = 4                  # K partitions of the frozen encoder
+    ecotta_partition_sizes: Optional[List[int]] = None  # explicit per-partition block counts (auto if None)
+    ecotta_meta_hidden_scale: float = 1.0           # MLP hidden dim = embed_dim * scale
+    ecotta_reg_lambda: float = 0.25                 # self-distilled L1 regularization weight (paper 0.5 / README 0.25)
+    ecotta_warmup_epochs: int = 5                   # source warmup epochs (CE)
+    ecotta_warmup_lr: float = 5e-2                  # SGD lr during warmup (paper: 5e-2)
+    ecotta_tta_lr: float = 5e-3                     # SGD lr during TTA (paper: 5e-3)
+    ecotta_min_confident_fraction: float = 0.25     # DR safety net: guaranteed entropy-quota per batch
+    ecotta_per_class_cap: Optional[int] = None      # max confident samples per predicted class (None = uncapped)
+    # LCoTTA-specific params (NeurIPS 2025, subspace-projected entropy minimization)
+    lcotta_subspace_dim: int = 10                   # r: principal subspace rank (paper 25 R50 / 50 ViT on ImageNet-C)
+    lcotta_queue_length: int = 30                   # k: gradient queue length (paper 100; DR test sets are smaller)
+    lcotta_sample_interval: int = 2                 # sample a gradient into the queue every N batches (paper 50/100)
+    lcotta_entropy_margin: float = 0.4              # e_margin factor: H0 = margin * log(C) (official 0.4*ln(1000))
+    lcotta_momentum: float = 0.9                    # SGD momentum (official BETA: 0.9)
+    lcotta_cosine_filter: bool = True               # EATA-style redundancy filter vs running mean prediction
+    lcotta_cosine_threshold: float = 0.05           # |cos| threshold for the redundancy filter (official 0.05)
+    lcotta_prob_ema: float = 0.9                    # EMA rate of the running mean prediction (official 0.9)
+    lcotta_min_confident_fraction: float = 0.25     # DR safety net: guaranteed entropy-quota per batch
+    lcotta_per_class_cap: Optional[int] = None      # max confident samples per predicted class (None = uncapped)
+    lcotta_adapt_head: bool = False                 # also adapt the prototype classifier head (DR-specific)
+    lcotta_head_lr_multiplier: float = 10.0         # head param-group lr = lcotta lr * this
+    lcotta_optimizer: str = "sgd"                   # "sgd" (official) | "adam" (DR: tiny entropy grads need adaptive steps)
+    lcotta_prior_alignment_weight: float = 0.0      # SAR-style APU: keeps batch mean prediction high-entropy (stops class-2 drain)
+    lcotta_head_anchor_weight: float = 0.0          # L2 trust region on head vs source prototypes (bounds per-class erosion)
 
 
 class PrototypeConfig(BaseModel):

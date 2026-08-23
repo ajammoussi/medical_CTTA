@@ -265,6 +265,20 @@ class SequentialCTTARunner(BaseRunnerMixin):
                 ce_loss_weight=domain_ctta.ce_loss_weight,
                 pseudo_label_threshold=domain_ctta.pseudo_label_threshold,
             )
+        elif domain_ctta.method == "ecotta":
+            method_kwargs = dict(
+                ecotta_num_partitions=domain_ctta.ecotta_num_partitions,
+                ecotta_partition_sizes=domain_ctta.ecotta_partition_sizes,
+                ecotta_meta_hidden_scale=domain_ctta.ecotta_meta_hidden_scale,
+                ecotta_reg_lambda=domain_ctta.ecotta_reg_lambda,
+                ecotta_entropy_margin=domain_ctta.entropy_margin,
+                ecotta_warmup_epochs=domain_ctta.ecotta_warmup_epochs,
+                ecotta_warmup_lr=domain_ctta.ecotta_warmup_lr,
+                ecotta_tta_lr=domain_ctta.ecotta_tta_lr,
+                ecotta_min_confident_fraction=domain_ctta.ecotta_min_confident_fraction,
+                ecotta_per_class_cap=domain_ctta.ecotta_per_class_cap,
+                ecotta_grad_checkpointing=self.config.gradient_checkpointing,
+            )
 
         logger.info(f"Creating adapter for {target_ds.name}: method={domain_ctta.method}, "
                     f"lr={domain_ctta.lr}, conf_thresh={domain_ctta.confidence_threshold}")
@@ -291,6 +305,11 @@ class SequentialCTTARunner(BaseRunnerMixin):
 
         snap = {n: p.detach().cpu() for n, p in model.named_parameters() if p.requires_grad}
         adapter.setup(model, snap, pretrained_snapshot=pretrained_snapshot)
+
+        # Source warmup for methods that need it (e.g. EcoTTA).
+        if hasattr(adapter, "warmup"):
+            logger.info(f"Warming up on {dataset_config.name} train split")
+            adapter.warmup(self._build_train_loader(dataset_config))
 
         dataset_class = DatasetRegistry.get(dataset_config.name)
         dataset = dataset_class(

@@ -1,0 +1,7 @@
+﻿extends: ../../default.yaml
+output_dir: ./outputs/lcotta/idrid_visionfm/
+model: !include ../../model/visionfm.yaml
+target_dataset: !include ../../data/idrid.yaml
+ctta: !include ../../lcotta/idrid_visionfm.yaml
+prototype:
+  temperature: 50.0

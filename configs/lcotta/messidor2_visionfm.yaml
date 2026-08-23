@@ -1,0 +1,17 @@
+﻿method: lcotta
+adapt_every_batch: true
+# LCoTTA (NeurIPS 2025) — Messidor-2 (VisionFM)
+# V4 +9.71 QWK but cls2 -10.1 / cls1 -5.6 despite prior_w 0.30 (marginal entropy already ~max => APU gradient ~0). V5: head x10->x3 + strong trust region 0.35; gains must come from LN.
+lcotta_optimizer: adam
+lr: 1e-4
+entropy_margin: 0.40
+lcotta_subspace_dim: 8
+lcotta_queue_length: 14
+lcotta_sample_interval: 1
+lcotta_cosine_filter: false
+lcotta_min_confident_fraction: 0.25
+lcotta_per_class_cap: 5
+lcotta_adapt_head: true
+lcotta_head_lr_multiplier: 3.0
+lcotta_prior_alignment_weight: 0.10
+lcotta_head_anchor_weight: 0.35

@@ -1,0 +1,17 @@
+﻿method: lcotta
+adapt_every_batch: true
+# LCoTTA (NeurIPS 2025) — Messidor-2 (RETFound-DINOv2)
+# V4 fallback AGAIN even at lr 1e-4/x5: rare-grade flips trip the >0.02 tolerance easily (cls4 baseline is 100% on few samples). V5: ultra-gentle (lr 5e-5, head x2) + rich quota 0.375 for better signal-to-drift ratio.
+lcotta_optimizer: adam
+lr: 5e-5
+entropy_margin: 0.50
+lcotta_subspace_dim: 8
+lcotta_queue_length: 14
+lcotta_sample_interval: 1
+lcotta_cosine_filter: false
+lcotta_min_confident_fraction: 0.375
+lcotta_per_class_cap: 6
+lcotta_adapt_head: true
+lcotta_head_lr_multiplier: 2.0
+lcotta_prior_alignment_weight: 0.10
+lcotta_head_anchor_weight: 0.40

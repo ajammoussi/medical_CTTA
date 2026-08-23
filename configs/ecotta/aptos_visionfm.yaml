@@ -1,0 +1,15 @@
+method: ecotta
+adapt_every_batch: true
+# EcoTTA params (arXiv 2303.01904) — VisionFM ViT-B (12 blocks)
+# K=7, last 4 partitions single blocks so the 3072-dim classifier taps stay on 8,9,10,11.
+# APTOS: VisionFM overconfident (T=50) -> strict margin, very low TTA lr, stronger reg.
+ecotta_num_partitions: 7
+ecotta_partition_sizes: [2, 2, 4, 1, 1, 1, 1]
+ecotta_meta_hidden_scale: 1.0
+ecotta_reg_lambda: 0.5
+entropy_margin: 0.25
+ecotta_warmup_epochs: 3
+ecotta_warmup_lr: 5e-4
+ecotta_tta_lr: 5e-5
+ecotta_min_confident_fraction: 0.25
+ecotta_per_class_cap: 3

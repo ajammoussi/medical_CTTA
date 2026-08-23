@@ -4,3 +4,5 @@ from src.adapters.base import CTTAAdapter
 from src.adapters import cotta
 from src.adapters import palm
 from src.adapters import vida
+from src.adapters import ecotta
+from src.adapters import lcotta

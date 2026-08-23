@@ -1,0 +1,12 @@
+method: ecotta
+adapt_every_batch: true
+# EcoTTA params (arXiv 2303.01904)
+ecotta_num_partitions: 4            # RETFound ViT-L (24 blocks) -> auto [4,4,8,8]
+ecotta_meta_hidden_scale: 1.0       # meta MLP hidden dim = embed_dim * scale
+ecotta_reg_lambda: 0.25             # self-distilled L1 weight
+entropy_margin: 0.40                # H0 = 0.4 * log(C) (EATA-style margin)
+ecotta_warmup_epochs: 3
+ecotta_warmup_lr: 1e-3
+ecotta_tta_lr: 2e-4
+ecotta_min_confident_fraction: 0.25
+ecotta_per_class_cap: 4

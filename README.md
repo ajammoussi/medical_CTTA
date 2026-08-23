@@ -4,12 +4,12 @@ A Python research framework for Continual Test-Time Adaptation (CTTA) of medical
 
 ## Overview
 
-This framework adapts pretrained foundation models (RETFound, VisionFM) to new medical imaging domains without access to source data or labeled targets. It supports **single-domain adaptation** (CoTTA, PALM, ViDA) and **sequential multi-domain adaptation** to measure catastrophic forgetting.
+This framework adapts pretrained foundation models (RETFound, VisionFM) to new medical imaging domains without access to source data or labeled targets. It supports **single-domain adaptation** (CoTTA, PALM, ViDA, E-CoTTA) and **sequential multi-domain adaptation** to measure catastrophic forgetting.
 
 ### Key Features
 
 - **RETFound** foundation model wrapper (ViT-Large, DINOv2 checkpoint) and **VisionFM** (ViT-Base, fundus checkpoint)
-- **CoTTA**, **PALM**, and **ViDA** adapters (every-batch adaptation; shift-detection gating was removed)
+- **CoTTA**, **PALM**, **ViDA**, and **E-CoTTA** adapters (every-batch adaptation; shift-detection gating was removed)
 - **Sequential CTTA protocol**: e.g. IDRiD → APTOS → IDRiD (no weight reset between domains, teacher reset per target)
 - **Evaluation metrics** (QWK, per-class accuracy, forgetting metric)
 - **Kaggle integration** via VS Code Remote Tunnels for GPU training
@@ -23,20 +23,20 @@ medical_CTTA/
 │   ├── default.yaml      # Global experiment defaults
 │   ├── data/             # Dataset configs (idrid, aptos2019, messidor2)
 │   ├── model/            # Model configs (retfound, visionfm)
-│   ├── {cotta,palm,vida}/  # Flat method-param fragments
+│   ├── {cotta,palm,vida,ecotta}/  # Flat method-param fragments
 │   └── method/           # Composed experiment configs (extends + !include)
 ├── src/                  # Python source modules
 │   ├── config.py         # Pydantic config with extends/!include support
 │   ├── env.py            # Kaggle vs local auto-detect (notebook bootstrap)
 │   ├── data/             # Dataset loaders + download utilities
 │   ├── models/           # Foundation model wrappers
-│   ├── adapters/         # CTTA adapters (CoTTA, PALM, ViDA)
+│   ├── adapters/         # CTTA adapters (CoTTA, PALM, ViDA, E-CoTTA)
 │   ├── evaluation/       # Metrics and runner package (single + sequential)
 │   ├── utils/            # Logging, seeding, checkpointing
 │   └── viz/              # Plotting helpers
 ├── notebooks/            # Jupyter notebooks for experiments
-│   ├── setup/ baselines/ cotta/ palm/ vida/ sequential/
-├── scripts/              # run_cotta.py, run_vida.py, kaggle_sync.py
+│   ├── setup/ baselines/ cotta/ palm/ vida/ ecotta/ sequential/
+├── scripts/              # run_cotta.py, run_vida.py, gen_ecotta_notebooks.py, kaggle_sync.py
 ├── tests/                # Unit tests
 ├── KAGGLE_SETUP.md       # Kaggle VS Code Remote Tunnels guide
 ├── kaggle.yml            # Kaggle kernel config
@@ -52,7 +52,7 @@ Each experiment runs on one dataset:
 1. Load pretrained weights (RETFound from HuggingFace, VisionFM from Google Drive via gdown)
 2. Replace the classifier head with class prototypes from the train split (scaled by `prototype.temperature`)
 3. Evaluate baseline (no adaptation)
-4. Run the CTTA method (CoTTA, PALM, or ViDA) on the full test stream, adapting every batch
+4. Run the CTTA method (CoTTA, PALM, ViDA, or E-CoTTA) on the full test stream, adapting every batch
 5. Evaluate post-adaptation
 
 ### Sequential multi-domain CTTA
@@ -123,7 +123,7 @@ runner = SequentialCTTARunner(config)
 results = runner.run()
 ```
 
-Alternatively, run experiments from notebooks (`notebooks/cotta/`, `notebooks/palm/`, `notebooks/vida/`, `notebooks/sequential/`) — each notebook loads fresh weights and writes `ctta_results.json` into its own output directory. Results include baseline QWK, per-domain adaptation results, and forgetting metrics.
+Alternatively, run experiments from notebooks (`notebooks/cotta/`, `notebooks/palm/`, `notebooks/vida/`, `notebooks/ecotta/`, `notebooks/sequential/`) — each notebook loads fresh weights and writes `ctta_results.json` into its own output directory. Results include baseline QWK, per-domain adaptation results, and forgetting metrics.
 
 ## Configuration
 
@@ -132,7 +132,7 @@ All experiments are configured via YAML files. Config loading is non-standard:
 - `!include <path>` inlines another YAML file (resolved relative to the including file)
 - `load_config(path)` returns a pydantic `ExperimentConfig`
 
-Fragments (`configs/{cotta,palm,vida}/*.yaml`) hold method-specific parameters and are composed into experiment configs under `configs/method/{method}/` (cross-domain variants use `*_target_from_*.yaml` naming).
+Fragments (`configs/{cotta,palm,vida,ecotta}/*.yaml`) hold method-specific parameters and are composed into experiment configs under `configs/method/{method}/` (cross-domain variants use `*_target_from_*.yaml` naming).
 
 ## Datasets
 
@@ -148,6 +148,7 @@ Fragments (`configs/{cotta,palm,vida}/*.yaml`) hold method-specific parameters a
 - **CoTTA**: teacher-student framework with stochastic restoration and confidence-gated augmentation
 - **PALM**: layer selection by gradient magnitude with per-parameter adaptive learning rates (percentile mode by default; fixed-threshold mode per original paper)
 - **ViDA**: dual low-rank/high-rank adapter injection with uncertainty-based gating (HKA)
+- **E-CoTTA**: memory-efficient TTA — frozen encoder partitioned into K groups, each with a zero-init residual MLP meta module (exact identity at init, so the baseline forward stays intact); self-distilled L1 regularization (`|mlp(x)|` mean, official `|f_M(x)-f_orig(x)|`) + confident-set entropy with per-class cap, single forward per batch, per-partition gradient checkpointing so ViT-L fits a 16 GB T4 (EcoTTA, arXiv 2303.01904)
 
 All methods adapt on every batch; no adaptation is gated on shift detection.
 
